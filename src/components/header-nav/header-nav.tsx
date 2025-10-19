@@ -1,7 +1,11 @@
 ﻿import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 
-export default function HeaderNav() {
+type HeaderNavProps = {
+  favoriteCount: number;
+}
+
+export default function HeaderNav({favoriteCount}: HeaderNavProps) {
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
@@ -9,7 +13,7 @@ export default function HeaderNav() {
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{favoriteCount}</span>
         </Link>
       </li>
       <li className="header__nav-item">
