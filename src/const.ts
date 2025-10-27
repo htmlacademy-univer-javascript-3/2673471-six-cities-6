@@ -1,8 +1,11 @@
-﻿export enum AppRoute {
+﻿import {offers} from './mocks/offers.ts';
+
+export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favourites = '/favourites',
-  Offer = '/offer/:id'
+  Offer = '/offer',
+  NotFound = '*'
 }
 
 export enum AuthorizationStatus {
@@ -12,6 +15,7 @@ export enum AuthorizationStatus {
 }
 
 export const Settings = {
-  OffersCount: 3,
   AuthorizationStatus: AuthorizationStatus.Auth
 };
+
+export const favorites = offers.filter((offer) => offer.isFavorite);

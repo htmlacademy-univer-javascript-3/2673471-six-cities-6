@@ -2,7 +2,7 @@
 import {AppRoute} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 
-export default function Login() {
+export default function LoginScreen() {
   return (
     <div className='page page--gray page--login'>
       <header className='header'>

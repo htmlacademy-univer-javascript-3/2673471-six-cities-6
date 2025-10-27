@@ -1,6 +1,6 @@
 ﻿import Logo from '../../components/logo/logo.tsx';
 
-export default function FavoritesEmpty() {
+export default function FavoritesEmptyScreen() {
   return (
     <div className='page page--favorites-empty'>
       <header className='header'>
