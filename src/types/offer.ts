@@ -1,9 +1,8 @@
 ﻿import {HousingType} from './housing.type';
-import {City} from './city.enum.ts';
+import {City} from "./city.type.ts";
 
 export type Offer = {
   id: string;
-  city: City;
   images: string[];
   title: string;
   description: string;
@@ -17,6 +16,7 @@ export type Offer = {
   owner: Owner;
   isFavorite: boolean;
   commentsCount: number;
+  city: City;
 };
 
 type Owner = {

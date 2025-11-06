@@ -13,8 +13,8 @@ type OfferScreenProps = {
 }
 
 export default function OfferScreen({offers, favoriteCount, reviews}: OfferScreenProps) {
-  const {id} = useParams();
-  const offer = offers.find((off) => off.id === id);
+  const {offerId} = useParams();
+  const offer = offers.find((off) => off.id === offerId);
   if (!offer) {
     return <Navigate to={AppRoute.NotFound}/>;
   }

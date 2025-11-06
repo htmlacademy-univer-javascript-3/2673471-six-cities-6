@@ -35,13 +35,13 @@ export default function App({authorizationStatus, offers, favorites}: AppProps) 
         <Route
           path={AppRoute.Favourites}
           element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
+            <PrivateRoute authorizationStatus={authorizationStatus} redirectTo={AppRoute.Login}>
               <FavoritesScreen favorites={favorites}/>
             </PrivateRoute>
           }
         />
         <Route
-          path={`${AppRoute.Offer}/:id`}
+          path={`${AppRoute.Offer}/:offerId`}
           element={
             <OfferScreen
               offers={offers}
