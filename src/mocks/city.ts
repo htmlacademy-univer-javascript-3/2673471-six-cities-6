@@ -1,5 +1,5 @@
-﻿import {City} from "../types/city.type.ts";
-import {CityEnum} from "../types/city.enum.ts";
+﻿import {City} from '../types/city.type.ts';
+import {CityEnum} from '../types/city.enum.ts';
 
 export const city: City = {
   cityName: CityEnum.Amsterdam,
@@ -7,4 +7,4 @@ export const city: City = {
     latitude: 52.370216,
     longitude: 4.895168
   }
-}
+};

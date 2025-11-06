@@ -4,16 +4,16 @@ import {Link} from 'react-router-dom';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {Offer} from '../../types/offer.ts';
 import ListOffers from '../../components/list-offers/list-offers.tsx';
-import Map from "../../components/map/map.tsx";
-import {city} from "../../mocks/city.ts";
-import {useState} from "react";
+import Map from '../../components/map/map.tsx';
+import {city} from '../../mocks/city.ts';
+import {useState} from 'react';
 
 type MainProps = {
   offers: Offer[];
   favoriteCount: number;
 }
 
-export default function MainScreen(props: MainProps) : JSX.Element {
+export default function MainScreen(props: MainProps): JSX.Element {
   const [selectedOfferId, setSelectedOffer] = useState<Offer['id'] | null>(null);
   const handleCardHover = (offerId: Offer['id'] | null) => {
     setSelectedOffer(offerId);
@@ -24,10 +24,10 @@ export default function MainScreen(props: MainProps) : JSX.Element {
         <div className='container'>
           <div className='header__wrapper'>
             <div className='header__left'>
-              <Logo />
+              <Logo/>
             </div>
             <nav className='header__nav'>
-              <HeaderNav favoriteCount={props.favoriteCount} />
+              <HeaderNav favoriteCount={props.favoriteCount}/>
             </nav>
           </div>
         </div>
@@ -94,16 +94,17 @@ export default function MainScreen(props: MainProps) : JSX.Element {
               <div className='cities__places-list places__list tabs__content'>
                 <ListOffers
                   offers={props.offers}
-                  onCardHover={handleCardHover}></ListOffers>
+                  onCardHover={handleCardHover}
+                />
               </div>
             </section>
             <div className='cities__right-section'>
-                <Map
-                  className='cities__map map'
-                  offers={props.offers}
-                  city={city}
-                  selectedOfferId={selectedOfferId}
-                />
+              <Map
+                className='cities__map map'
+                offers={props.offers}
+                city={city}
+                selectedOfferId={selectedOfferId}
+              />
             </div>
           </div>
         </div>

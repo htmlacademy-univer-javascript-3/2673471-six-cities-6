@@ -1,5 +1,5 @@
 ﻿import {HousingType} from './housing.type';
-import {City} from "./city.type.ts";
+import {City} from './city.type.ts';
 
 export type Offer = {
   id: string;

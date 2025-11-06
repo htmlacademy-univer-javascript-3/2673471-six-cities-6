@@ -1,17 +1,17 @@
-﻿import {useEffect, useRef} from "react";
-import useMap from "../../hooks/use-map.tsx";
-import {layerGroup, Marker} from "leaflet";
+﻿import {useEffect, useRef} from 'react';
+import useMap from '../../hooks/use-map.tsx';
+import {layerGroup, Marker} from 'leaflet';
 import leaflet from 'leaflet';
-import {Offer} from "../../types/offer.ts";
-import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from "../../const.ts";
-import {City} from "../../types/city.type.ts";
+import {Offer} from '../../types/offer.ts';
+import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
+import {City} from '../../types/city.type.ts';
 
 type MapProps = {
   className?: string;
-  city: City,
-  offers: Offer[],
-  selectedOfferId: Offer['id'] | null,
-}
+  city: City;
+  offers: Offer[];
+  selectedOfferId: Offer['id'] | null;
+};
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -57,4 +57,4 @@ export default function Map({city, offers, selectedOfferId, className}: MapProps
       ref={mapRef}
     />
   );
-};
+}
