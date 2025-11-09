@@ -1,11 +1,10 @@
 ﻿import {Offer} from '../types/offer.ts';
 import {HousingType} from '../types/housing.type.ts';
-import {City} from '../types/city.enum.ts';
+import {CityEnum} from '../types/city.enum.ts';
 
 export const offers: Offer[] = [
   {
     id: '1',
-    city: City.Amsterdam,
     images: [
       'img/apartment-01.jpg',
       '/img/room-02.jpg;',
@@ -29,11 +28,17 @@ export const offers: Offer[] = [
       isPro: true
     },
     isFavorite: true,
-    commentsCount: 1
+    commentsCount: 1,
+    city: {
+      cityName: CityEnum.Amsterdam,
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198
+      }
+    }
   },
   {
     id: '2',
-    city: City.Amsterdam,
     images: [
       'img/room.jpg',
       '/img/room-03.jpg;',
@@ -57,11 +62,17 @@ export const offers: Offer[] = [
       isPro: false
     },
     isFavorite: true,
-    commentsCount: 1
+    commentsCount: 1,
+    city: {
+      cityName: CityEnum.Amsterdam,
+      location: {
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198
+      }
+    }
   },
   {
     id: '3',
-    city: City.Amsterdam,
     images: [
       'img/apartment-02.jpg',
       '/img/room-04.jpg',
@@ -85,11 +96,17 @@ export const offers: Offer[] = [
       isPro: true
     },
     isFavorite: false,
-    commentsCount: 1
+    commentsCount: 1,
+    city: {
+      cityName: CityEnum.Amsterdam,
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198
+      }
+    }
   },
   {
     id: '4',
-    city: City.Amsterdam,
     images: [
       'img/apartment-03.jpg',
       '/img/room-05.jpg',
@@ -113,6 +130,13 @@ export const offers: Offer[] = [
       isPro: false
     },
     isFavorite: false,
-    commentsCount: 1
+    commentsCount: 1,
+    city: {
+      cityName: CityEnum.Amsterdam,
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198
+      }
+    }
   }
 ];

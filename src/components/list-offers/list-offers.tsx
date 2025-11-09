@@ -1,15 +1,14 @@
 ﻿import {Offer} from '../../types/offer.ts';
 import OfferCard from '../offer-card/offer-card.tsx';
-import {useState} from 'react';
 
 type ListOffersProps = {
   offers: Offer[];
+  onCardHover: (offer: Offer['id'] | null) => void;
 }
 
 export default function ListOffers(props: ListOffersProps) {
-  const [, setActiveCard] = useState<string | null>(null);
-  const handleMouseOver = (offerId: string | null) => {
-    setActiveCard(offerId);
+  const handleMouseOver = (offerId: Offer['id'] | null) => {
+    props.onCardHover(offerId);
   };
   return (
     <>

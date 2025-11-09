@@ -19,3 +19,11 @@ export const Settings = {
 };
 
 export const favorites = offers.filter((offer) => offer.isFavorite);
+
+export function GetStars(rating: number): number {
+  return Math.round(rating) * 100 / 5;
+}
+
+export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+
+export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';

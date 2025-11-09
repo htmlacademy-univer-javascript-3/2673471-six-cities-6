@@ -1,5 +1,5 @@
 ﻿import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, GetStars} from '../../const.ts';
 import {Offer} from '../../types/offer.ts';
 
 type FavouriteCardProps = {
@@ -35,7 +35,7 @@ export default function FavoriteCard({favorite}: FavouriteCardProps) {
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{width: `${favorite.rating * 100 / 5}%`}}/>
+            <span style={{width: `${GetStars(favorite.rating)}%`}}/>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>

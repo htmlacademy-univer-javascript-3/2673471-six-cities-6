@@ -1,6 +1,6 @@
 ﻿import {Offer} from '../../types/offer.ts';
 import {Navigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, GetStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {Review} from '../../types/review.ts';
@@ -13,8 +13,8 @@ type OfferScreenProps = {
 }
 
 export default function OfferScreen({offers, favoriteCount, reviews}: OfferScreenProps) {
-  const {id} = useParams();
-  const offer = offers.find((off) => off.id === id);
+  const {offerId} = useParams();
+  const offer = offers.find((off) => off.id === offerId);
   if (!offer) {
     return <Navigate to={AppRoute.NotFound}/>;
   }
@@ -65,7 +65,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: `${GetStars(offer.rating)}%`}}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
                 <span className='offer__rating-value rating__value'>{offer.rating}</span>
