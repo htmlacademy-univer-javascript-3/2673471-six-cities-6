@@ -4,10 +4,10 @@ import {AppRoute, GetStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {ReviewType} from '../../types/review.type.ts';
-import ListReviews from "../../components/list-reviews/list-reviews.tsx";
-import {city} from "../../mocks/city.ts";
-import Map from "../../components/map/map.tsx";
-import NearPlacesList from "../../components/near-places-list/near-places-list.tsx";
+import ListReviews from '../../components/list-reviews/list-reviews.tsx';
+import {city} from '../../mocks/city.ts';
+import Map from '../../components/map/map.tsx';
+import NearPlacesList from '../../components/near-places-list/near-places-list.tsx';
 
 type OfferScreenProps = {
   offers: Offer[];
