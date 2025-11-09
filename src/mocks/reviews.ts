@@ -1,6 +1,6 @@
-﻿import {Review} from '../types/review.ts';
+﻿import {ReviewType} from '../types/review.type.ts';
 
-export const reviews: Review[] = [
+export const reviews: ReviewType[] = [
   {
     id: 1,
     offerId: '3',

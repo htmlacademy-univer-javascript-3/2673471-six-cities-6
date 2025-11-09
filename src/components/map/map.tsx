@@ -55,6 +55,7 @@ export default function Map({city, offers, selectedOfferId, className}: MapProps
     <section
       className={className}
       ref={mapRef}
+      style={{height: '500px'}}
     />
   );
 }
