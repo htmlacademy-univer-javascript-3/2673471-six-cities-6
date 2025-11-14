@@ -20,7 +20,7 @@ export const Settings = {
 
 export const favorites = offers.filter((offer) => offer.isFavorite);
 
-export function GetStars(rating: number): number {
+export function getStars(rating: number): number {
   return Math.round(rating) * 100 / 5;
 }
 

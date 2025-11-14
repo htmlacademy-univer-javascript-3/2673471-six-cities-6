@@ -1,13 +1,13 @@
 ﻿import {Offer} from '../../types/offer.ts';
 import {Navigate, useParams} from 'react-router-dom';
-import {AppRoute, GetStars} from '../../const.ts';
+import {AppRoute, getStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {ReviewType} from '../../types/review.type.ts';
 import ListReviews from '../../components/list-reviews/list-reviews.tsx';
 import {city} from '../../mocks/city.ts';
 import Map from '../../components/map/map.tsx';
-import NearPlacesList from '../../components/near-places-list/near-places-list.tsx';
+import ListCards from '../../components/list-cards/list-cards.tsx';
 
 type OfferScreenProps = {
   offers: Offer[];
@@ -71,7 +71,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{width: `${GetStars(offer.rating)}%`}}></span>
+                  <span style={{width: `${getStars(offer.rating)}%`}}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
                 <span className='offer__rating-value rating__value'>{offer.rating}</span>
@@ -105,7 +105,12 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
                 <h2 className='offer__host-title'>Meet the host</h2>
                 <div className='offer__host-user user'>
                   <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
-                    <img className='offer__avatar user__avatar' src={offer.owner.avatarAuthor} width='74' height='74' alt='Host avatar'/>
+                    <img
+                      className='offer__avatar user__avatar'
+                      src={offer.owner.avatarAuthor}
+                      width='74' height='74'
+                      alt='Host avatar'
+                    />
                   </div>
                   <span className='offer__user-name'>
                     {offer.owner.nameAuthor}
@@ -127,16 +132,18 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
             </div>
           </div>
           <Map
-            className='offer__map map'
             offers={mapOffers}
             city={city}
             selectedOfferId={offer.id}
+            block='offer'
           />
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
-            <NearPlacesList offers={nearbyOffers} />
+            <div className="near-places__list places__list">
+              <ListCards offers={nearbyOffers} block={'near-places'} size={'large'} onCardHover={() => null}/>
+            </div>
           </section>
         </div>
       </main>

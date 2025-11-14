@@ -3,7 +3,7 @@ import {AppRoute} from '../../const.ts';
 import {Link} from 'react-router-dom';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {Offer} from '../../types/offer.ts';
-import ListOffers from '../../components/list-offers/list-offers.tsx';
+import ListCards from '../../components/list-cards/list-cards.tsx';
 import Map from '../../components/map/map.tsx';
 import {city} from '../../mocks/city.ts';
 import {useState} from 'react';
@@ -92,18 +92,20 @@ export default function MainScreen(props: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className='cities__places-list places__list tabs__content'>
-                <ListOffers
+                <ListCards
                   offers={props.offers}
+                  block={'cities'}
+                  size={'large'}
                   onCardHover={handleCardHover}
                 />
               </div>
             </section>
             <div className='cities__right-section'>
               <Map
-                className='cities__map map'
                 offers={props.offers}
                 city={city}
                 selectedOfferId={selectedOfferId}
+                block='cities'
               />
             </div>
           </div>

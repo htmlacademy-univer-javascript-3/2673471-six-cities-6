@@ -7,10 +7,10 @@ import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
 import {City} from '../../types/city.type.ts';
 
 type MapProps = {
-  className?: string;
   city: City;
   offers: Offer[];
   selectedOfferId: Offer['id'] | null;
+  block?: string;
 };
 
 const defaultCustomIcon = leaflet.icon({
@@ -25,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({city, offers, selectedOfferId, className}: MapProps): JSX.Element {
+export default function Map({city, offers, selectedOfferId, block}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -53,9 +53,8 @@ export default function Map({city, offers, selectedOfferId, className}: MapProps
   }, [map, offers, selectedOfferId]);
   return (
     <section
-      className={className}
+      className={`${block}__map map`}
       ref={mapRef}
-      style={{height: '500px'}}
     />
   );
 }
