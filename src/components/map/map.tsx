@@ -2,14 +2,14 @@
 import useMap from '../../hooks/use-map.tsx';
 import {layerGroup, Marker} from 'leaflet';
 import leaflet from 'leaflet';
-import {Offer} from '../../types/offer.ts';
+import {OfferType} from '../../types/offerType.ts';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
-import {City} from '../../types/city.type.ts';
+import {CityEnum} from '../../types/city.enum.ts';
 
 type MapProps = {
-  city: City;
-  offers: Offer[];
-  selectedOfferId: Offer['id'] | null;
+  city: CityEnum;
+  offers: OfferType[];
+  selectedOfferId: OfferType['id'] | null;
   block?: string;
 };
 
@@ -50,7 +50,7 @@ export default function Map({city, offers, selectedOfferId, block}: MapProps): J
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [city, map, offers, selectedOfferId]);
   return (
     <section
       className={`${block}__map map`}

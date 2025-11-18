@@ -1,23 +1,23 @@
 ﻿import Logo from '../../components/logo/logo.tsx';
-import {AppRoute} from '../../const.ts';
-import {Link} from 'react-router-dom';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
-import {Offer} from '../../types/offer.ts';
-import ListCards from '../../components/list-cards/list-cards.tsx';
+import {OfferType} from '../../types/offerType.ts';
+import ListOffers from '../../components/list-offers/list-offers.tsx';
 import Map from '../../components/map/map.tsx';
-import {city} from '../../mocks/city.ts';
 import {useState} from 'react';
+import ListCities from '../../components/list-cities/list-cities.tsx';
+import {useAppSelector} from '../../hooks';
 
 type MainProps = {
-  offers: Offer[];
   favoriteCount: number;
 }
 
 export default function MainScreen(props: MainProps): JSX.Element {
-  const [selectedOfferId, setSelectedOffer] = useState<Offer['id'] | null>(null);
-  const handleCardHover = (offerId: Offer['id'] | null) => {
+  const [selectedOfferId, setSelectedOffer] = useState<OfferType['id'] | null>(null);
+  const handleCardHover = (offerId: OfferType['id'] | null) => {
     setSelectedOffer(offerId);
   };
+  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   return (
     <div className='page page--gray page--main'>
       <header className='header'>
@@ -35,47 +35,12 @@ export default function MainScreen(props: MainProps): JSX.Element {
 
       <main className='page__main page__main--index'>
         <h1 className='visually-hidden'>Cities</h1>
-        <div className='tabs'>
-          <section className='locations container'>
-            <ul className='locations__list tabs__list'>
-              <li className='locations__item'>
-                <Link to={AppRoute.Main} className='locations__item-link tabs__item'>
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link to={AppRoute.Main} className='locations__item-link tabs__item'>
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link to={AppRoute.Main} className='locations__item-link tabs__item'>
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link to={AppRoute.Main} className='locations__item-link tabs__item'>
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link to={AppRoute.Main} className='locations__item-link tabs__item'>
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link to={AppRoute.Main} className='locations__item-link tabs__item'>
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <ListCities/>
         <div className='cities'>
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{props.offers.length} places to stay in Amsterdam</b>
+              <b className='places__found'>{offers.length} places to stay in {city}</b>
               <form className='places__sorting' action='#' method='get'>
                 <span className='places__sorting-caption'>Sort by </span>
                 <span className='places__sorting-type' tabIndex={0}>
@@ -92,8 +57,8 @@ export default function MainScreen(props: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className='cities__places-list places__list tabs__content'>
-                <ListCards
-                  offers={props.offers}
+                <ListOffers
+                  offers={offers}
                   block={'cities'}
                   size={'large'}
                   onCardHover={handleCardHover}
@@ -102,7 +67,7 @@ export default function MainScreen(props: MainProps): JSX.Element {
             </section>
             <div className='cities__right-section'>
               <Map
-                offers={props.offers}
+                offers={offers}
                 city={city}
                 selectedOfferId={selectedOfferId}
                 block='cities'

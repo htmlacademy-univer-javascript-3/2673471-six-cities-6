@@ -2,22 +2,22 @@
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {AppRoute} from '../../const.ts';
 import {Link} from 'react-router-dom';
-import {Offer} from '../../types/offer.ts';
+import {OfferType} from '../../types/offerType.ts';
 import {CityEnum} from '../../types/city.enum.ts';
-import Card from '../../components/card/card.tsx';
+import Offer from '../../components/offer/offer.tsx';
 
 type FavoritesPageProps = {
-  favorites: Offer[];
+  favorites: OfferType[];
 }
 export default function FavoritesScreen({favorites}: FavoritesPageProps): JSX.Element {
-  const groupedByCity = favorites.reduce<Record<CityEnum, Offer[]>>((acc, offer) => {
+  const groupedByCity = favorites.reduce<Record<CityEnum, OfferType[]>>((acc, offer) => {
     const city = offer.city.cityName;
     if (!acc[city]) {
       acc[city] = [];
     }
     acc[city].push(offer);
     return acc;
-  }, {} as Record<CityEnum, Offer[]>);
+  }, {} as Record<CityEnum, OfferType[]>);
   const listFavorites = Object.entries(groupedByCity).map(([city, offers]) => (
     <li className='favorites__locations-items' key={city}>
       <div className='favorites__locations locations locations--current'>
@@ -29,7 +29,7 @@ export default function FavoritesScreen({favorites}: FavoritesPageProps): JSX.El
       </div>
       <div className='favorites__places'>
         {offers.map((offer) => (
-          <Card offer={offer} key={city} block={'favorites'} sizeImage={'small'}></Card>
+          <Offer offer={offer} key={city} block={'favorites'} sizeImage={'small'}></Offer>
         ))}
       </div>
     </li>

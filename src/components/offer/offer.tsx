@@ -1,20 +1,20 @@
 ﻿import {Link} from 'react-router-dom';
 import {AppRoute, getStars} from '../../const.ts';
-import {Offer} from '../../types/offer.ts';
+import {OfferType} from '../../types/offerType.ts';
 
-export type CardBlockStyle = 'cities' | 'near-places' | 'favorites';
-export type CardImageSize = 'small' | 'large';
-type CardProps = {
-  offer: Offer;
-  block: CardBlockStyle;
-  sizeImage: CardImageSize;
+export type OfferBlockStyle = 'cities' | 'near-places' | 'favorites';
+export type OfferImageSize = 'small' | 'large';
+type OfferProps = {
+  offer: OfferType;
+  block: OfferBlockStyle;
+  sizeImage: OfferImageSize;
 }
-const sizeImageRecord: Record<CardImageSize, {width: string; height: string}> = {
+const sizeImageRecord: Record<OfferImageSize, {width: string; height: string}> = {
   small: { width: '150', height: '110'},
   large: { width: '260', height: '200'}
 };
 
-export default function Card({offer, block, sizeImage}: CardProps) {
+export default function Offer({offer, block, sizeImage}: OfferProps) {
   return (
     <article className={`${block}__card place-card`}>
       {

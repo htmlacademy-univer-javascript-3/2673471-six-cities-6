@@ -6,16 +6,17 @@ import LoginScreen from '../../pages/login-screen/login-screen.tsx';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
 import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
-import {Offer} from '../../types/offer.ts';
+import {OfferType} from '../../types/offerType.ts';
 import {reviews} from '../../mocks/reviews.ts';
+import {useAppSelector} from '../../hooks';
 
 type AppProps = {
   authorizationStatus: AuthorizationStatus;
-  offers: Offer[];
-  favorites: Offer[];
+  favorites: OfferType[];
 }
 
-export default function App({authorizationStatus, offers, favorites}: AppProps) {
+export default function App({authorizationStatus, favorites}: AppProps) {
+  const offers = useAppSelector((state) => state.offers);
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +24,6 @@ export default function App({authorizationStatus, offers, favorites}: AppProps) 
           path={AppRoute.Main}
           element={
             <MainScreen
-              offers={offers}
               favoriteCount={favorites.length}
             />
           }
