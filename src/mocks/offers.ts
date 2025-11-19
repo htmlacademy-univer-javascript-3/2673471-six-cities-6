@@ -1,8 +1,8 @@
-﻿import {OfferType} from '../types/offerType.ts';
+﻿import {OfferType} from '../types/offer.type.ts';
 import {HousingType} from '../types/housing.type.ts';
 import {CityEnum} from '../types/city.enum.ts';
 
-export const offers: OfferType[] = [
+export const OFFERS: OfferType[] = [
   {
     id: '1',
     images: [

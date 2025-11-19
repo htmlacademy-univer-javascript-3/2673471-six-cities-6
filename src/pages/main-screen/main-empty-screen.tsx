@@ -1,5 +1,5 @@
-﻿import Logo from '../../components/logo/logo.tsx';
-import {Link} from 'react-router-dom';
+﻿import {Link} from 'react-router-dom';
+import Logo from '../../components/logo/logo.tsx';
 import {AppRoute} from '../../const.ts';
 
 export default function MainEmptyScreen() {

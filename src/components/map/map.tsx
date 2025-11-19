@@ -1,8 +1,8 @@
 ﻿import {useEffect, useRef} from 'react';
-import useMap from '../../hooks/use-map.tsx';
 import {layerGroup, Marker} from 'leaflet';
 import leaflet from 'leaflet';
-import {OfferType} from '../../types/offerType.ts';
+import useMap from '../../hooks/use-map.tsx';
+import {OfferType} from '../../types/offer.type.ts';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
 import {CityEnum} from '../../types/city.enum.ts';
 

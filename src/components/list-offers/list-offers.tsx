@@ -1,4 +1,4 @@
-﻿import {OfferType} from '../../types/offerType.ts';
+﻿import {OfferType} from '../../types/offer.type.ts';
 import Offer, {OfferBlockStyle, OfferImageSize} from '../offer/offer.tsx';
 
 type ListOffersProps = {

@@ -1,8 +1,8 @@
-﻿import Logo from '../../components/logo/logo.tsx';
+﻿import {Link} from 'react-router-dom';
+import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {AppRoute} from '../../const.ts';
-import {Link} from 'react-router-dom';
-import {OfferType} from '../../types/offerType.ts';
+import {OfferType} from '../../types/offer.type.ts';
 import {CityEnum} from '../../types/city.enum.ts';
 import Offer from '../../components/offer/offer.tsx';
 
@@ -29,7 +29,7 @@ export default function FavoritesScreen({favorites}: FavoritesPageProps): JSX.El
       </div>
       <div className='favorites__places'>
         {offers.map((offer) => (
-          <Offer offer={offer} key={city} block={'favorites'} sizeImage={'small'}></Offer>
+          <Offer offer={offer} key={city} block='favorites' sizeImage='small'></Offer>
         ))}
       </div>
     </li>

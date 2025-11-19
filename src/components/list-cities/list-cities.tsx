@@ -1,8 +1,10 @@
 ﻿import {Link} from 'react-router-dom';
+import cn from 'classnames';
 import {AppRoute, getOffersByCity} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CityEnum} from '../../types/city.enum.ts';
 import {changeCity, fillListOffers} from '../../store/action.ts';
+import {CITIES} from '../../types/location.type.ts';
 
 export default function ListCities(): JSX.Element {
   const city = useAppSelector((state) => state.city);
@@ -15,14 +17,17 @@ export default function ListCities(): JSX.Element {
     <div className='tabs'>
       <section className='locations container'>
         <ul className='locations__list tabs__list'>
-          {Object.values(CityEnum).map((key) => (
-            <li className='locations__item' key={key}>
+          {Object.entries(CITIES).map(([cityName]) => (
+            <li className='locations__item' key={cityName}>
               <Link
                 to={AppRoute.Main}
-                className={`locations__item-link tabs__item ${key === city ? 'tabs__item--active' : ''}`}
-                onClick={() => handleClick(key as CityEnum)}
+                className={cn(
+                  'locations__item-link',
+                  'tabs__item',
+                  {'tabs__item--active' : cityName === city.toString()},)}
+                onClick={() => handleClick(cityName as CityEnum)}
               >
-                <span>{key}</span>
+                <span>{cityName}</span>
               </Link>
             </li>
           ))}
