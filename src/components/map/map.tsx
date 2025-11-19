@@ -2,15 +2,15 @@
 import useMap from '../../hooks/use-map.tsx';
 import {layerGroup, Marker} from 'leaflet';
 import leaflet from 'leaflet';
-import {Offer} from '../../types/offer.ts';
+import {OfferType} from '../../types/offerType.ts';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
-import {City} from '../../types/city.type.ts';
+import {CityEnum} from '../../types/city.enum.ts';
 
 type MapProps = {
-  className?: string;
-  city: City;
-  offers: Offer[];
-  selectedOfferId: Offer['id'] | null;
+  city: CityEnum;
+  offers: OfferType[];
+  selectedOfferId: OfferType['id'] | null;
+  block?: string;
 };
 
 const defaultCustomIcon = leaflet.icon({
@@ -25,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({city, offers, selectedOfferId, className}: MapProps): JSX.Element {
+export default function Map({city, offers, selectedOfferId, block}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -50,12 +50,11 @@ export default function Map({city, offers, selectedOfferId, className}: MapProps
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [city, map, offers, selectedOfferId]);
   return (
     <section
-      className={className}
+      className={`${block}__map map`}
       ref={mapRef}
-      style={{height: '500px'}}
     />
   );
 }

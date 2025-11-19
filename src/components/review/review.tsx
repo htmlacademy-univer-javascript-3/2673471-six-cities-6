@@ -1,5 +1,5 @@
 ﻿import { ReviewType } from '../../types/review.type.ts';
-import { GetStars } from '../../const.ts';
+import { getStars } from '../../const.ts';
 
 type ReviewProps = {
   review: ReviewType;
@@ -24,7 +24,7 @@ export default function Review({ review }: ReviewProps) {
       <div className='reviews__info'>
         <div className='reviews__rating rating'>
           <div className='reviews__stars rating__stars'>
-            <span style={{ width: `${GetStars(review.rating)}%` }}></span>
+            <span style={{ width: `${getStars(review.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>

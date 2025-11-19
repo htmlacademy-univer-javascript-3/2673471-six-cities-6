@@ -1,8 +1,8 @@
-﻿import {Offer} from '../types/offer.ts';
+﻿import {OfferType} from '../types/offerType.ts';
 import {HousingType} from '../types/housing.type.ts';
 import {CityEnum} from '../types/city.enum.ts';
 
-export const offers: Offer[] = [
+export const offers: OfferType[] = [
   {
     id: '1',
     images: [
@@ -132,11 +132,11 @@ export const offers: Offer[] = [
     isFavorite: false,
     commentsCount: 1,
     city: {
-      cityName: CityEnum.Amsterdam,
+      cityName: CityEnum.Paris,
       location: {
-        latitude: 52.3809553943508,
-        longitude: 4.939309666406198
+        latitude: 48.85661,
+        longitude: 2.351499
       }
-    }
+    },
   }
 ];

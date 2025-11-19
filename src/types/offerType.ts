@@ -1,7 +1,7 @@
 ﻿import {HousingType} from './housing.type';
-import {City} from './city.type.ts';
+import {CityType} from './city.type.ts';
 
-export type Offer = {
+export type OfferType = {
   id: string;
   images: string[];
   title: string;
@@ -16,7 +16,7 @@ export type Offer = {
   owner: Owner;
   isFavorite: boolean;
   commentsCount: number;
-  city: City;
+  city: CityType;
 };
 
 type Owner = {

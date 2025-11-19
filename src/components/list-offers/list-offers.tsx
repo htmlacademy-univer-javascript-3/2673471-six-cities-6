@@ -1,25 +1,26 @@
-﻿import {Offer} from '../../types/offer.ts';
-import OfferCard from '../offer-card/offer-card.tsx';
+﻿import {OfferType} from '../../types/offerType.ts';
+import Offer, {OfferBlockStyle, OfferImageSize} from '../offer/offer.tsx';
 
 type ListOffersProps = {
-  offers: Offer[];
-  onCardHover: (offer: Offer['id'] | null) => void;
+  offers: OfferType[];
+  block: OfferBlockStyle;
+  size: OfferImageSize;
+  onCardHover: (offer: OfferType['id'] | null) => void;
 }
 
 export default function ListOffers(props: ListOffersProps) {
-  const handleMouseOver = (offerId: Offer['id'] | null) => {
+  const handleMouseOver = (offerId: OfferType['id'] | null) => {
     props.onCardHover(offerId);
   };
   return (
     <>
       {props.offers.map((offer) => (
         <div
-          className={'offer'}
           key={offer.id}
           onMouseEnter={() => handleMouseOver(offer.id)}
           onMouseLeave={() => handleMouseOver(null)}
         >
-          <OfferCard offer={offer} />
+          <Offer offer={offer} block={props.block} sizeImage={props.size}/>
         </div>
       ))}
     </>
