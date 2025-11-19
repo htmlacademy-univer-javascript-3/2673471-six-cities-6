@@ -1,5 +1,5 @@
-﻿import {AuthorizationStatus} from '../../const.ts';
-import {Navigate} from 'react-router-dom';
+﻿import {Navigate} from 'react-router-dom';
+import {AuthorizationStatus} from '../../const.ts';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
@@ -7,8 +7,8 @@ type PrivateRouteProps = {
   children: JSX.Element;
 }
 export default function PrivateRoute(props: PrivateRouteProps) {
-  const { authorizationStatus, children, redirectTo } = props;
+  const {authorizationStatus, children, redirectTo} = props;
   return (
-    authorizationStatus === AuthorizationStatus.Auth ? children : <Navigate to={redirectTo} />
+    authorizationStatus === AuthorizationStatus.Auth ? children : <Navigate to={redirectTo}/>
   );
 }

@@ -1,9 +1,9 @@
-﻿import Logo from '../../components/logo/logo.tsx';
+﻿import {useState} from 'react';
+import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {OfferType} from '../../types/offerType.ts';
 import ListOffers from '../../components/list-offers/list-offers.tsx';
 import Map from '../../components/map/map.tsx';
-import {useState} from 'react';
 import ListCities from '../../components/list-cities/list-cities.tsx';
 import {useAppSelector} from '../../hooks';
 
@@ -59,8 +59,8 @@ export default function MainScreen(props: MainProps): JSX.Element {
               <div className='cities__places-list places__list tabs__content'>
                 <ListOffers
                   offers={offers}
-                  block={'cities'}
-                  size={'large'}
+                  block='cities'
+                  size='large'
                   onCardHover={handleCardHover}
                 />
               </div>

@@ -1,5 +1,5 @@
-﻿import {AppRoute, AuthorizationStatus} from '../../const.ts';
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+﻿import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import MainScreen from '../../pages/main-screen/main-screen.tsx';
 import NotFound from '../../pages/not-found-screen/not-found-screen.tsx';
 import LoginScreen from '../../pages/login-screen/login-screen.tsx';

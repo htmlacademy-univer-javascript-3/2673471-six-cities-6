@@ -1,5 +1,5 @@
-﻿import {OfferType} from '../../types/offerType.ts';
-import {Navigate, useParams} from 'react-router-dom';
+﻿import {Navigate, useParams} from 'react-router-dom';
+import {OfferType} from '../../types/offerType.ts';
 import {AppRoute, getStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
@@ -143,7 +143,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffers offers={nearbyOffers} block={'near-places'} size={'large'} onCardHover={() => null}/>
+              <ListOffers offers={nearbyOffers} block='near-places' size='large' onCardHover={() => null}/>
             </div>
           </section>
         </div>
