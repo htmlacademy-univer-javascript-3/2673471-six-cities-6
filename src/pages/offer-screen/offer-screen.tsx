@@ -1,5 +1,5 @@
 ﻿import {Navigate, useParams} from 'react-router-dom';
-import {OfferType} from '../../types/offerType.ts';
+import {OfferType} from '../../types/offer.type.ts';
 import {AppRoute, getStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';

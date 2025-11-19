@@ -1,11 +1,14 @@
 ﻿import {useState} from 'react';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
-import {OfferType} from '../../types/offerType.ts';
+import {OfferType} from '../../types/offer.type.ts';
 import ListOffers from '../../components/list-offers/list-offers.tsx';
 import Map from '../../components/map/map.tsx';
 import ListCities from '../../components/list-cities/list-cities.tsx';
 import {useAppSelector} from '../../hooks';
+import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
+import {SortOption, SortOptionType} from '../../types/sortOption.type.ts';
+import {sortOffersByOption} from '../../const.ts';
 
 type MainProps = {
   favoriteCount: number;
@@ -13,11 +16,13 @@ type MainProps = {
 
 export default function MainScreen(props: MainProps): JSX.Element {
   const [selectedOfferId, setSelectedOffer] = useState<OfferType['id'] | null>(null);
+  const [selectedSortOption, setSelectedSortOption] = useState<SortOptionType>(SortOption.Popular);
   const handleCardHover = (offerId: OfferType['id'] | null) => {
     setSelectedOffer(offerId);
   };
   const city = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const sortOffers = sortOffersByOption(offers, selectedSortOption);
   return (
     <div className='page page--gray page--main'>
       <header className='header'>
@@ -41,24 +46,10 @@ export default function MainScreen(props: MainProps): JSX.Element {
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
               <b className='places__found'>{offers.length} places to stay in {city}</b>
-              <form className='places__sorting' action='#' method='get'>
-                <span className='places__sorting-caption'>Sort by </span>
-                <span className='places__sorting-type' tabIndex={0}>
-                  Popular
-                  <svg className='places__sorting-arrow' width='7' height='4'>
-                    <use xlinkHref='#icon-arrow-select'></use>
-                  </svg>
-                </span>
-                <ul className='places__options places__options--custom places__options--opened'>
-                  <li className='places__option places__option--active' tabIndex={0}>Popular</li>
-                  <li className='places__option' tabIndex={0}>Price: low to high</li>
-                  <li className='places__option' tabIndex={0}>Price: high to low</li>
-                  <li className='places__option' tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <SortingOptions onChangeSortOption={setSelectedSortOption} currentOption={selectedSortOption}></SortingOptions>
               <div className='cities__places-list places__list tabs__content'>
                 <ListOffers
-                  offers={offers}
+                  offers={sortOffers}
                   block='cities'
                   size='large'
                   onCardHover={handleCardHover}

@@ -1,6 +1,6 @@
 ﻿import {createReducer} from '@reduxjs/toolkit';
 import {CityEnum} from '../types/city.enum.ts';
-import {OfferType} from '../types/offerType.ts';
+import {OfferType} from '../types/offer.type.ts';
 import {changeCity, fillListOffers} from './action.ts';
 import {getOffersByCity} from '../const.ts';
 

@@ -2,7 +2,7 @@
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {AppRoute} from '../../const.ts';
-import {OfferType} from '../../types/offerType.ts';
+import {OfferType} from '../../types/offer.type.ts';
 import {CityEnum} from '../../types/city.enum.ts';
 import Offer from '../../components/offer/offer.tsx';
 
