@@ -1,6 +1,6 @@
 ﻿import {Link} from 'react-router-dom';
 import {AppRoute, getStars} from '../../const.ts';
-import {OfferType} from '../../types/offerType.ts';
+import {OfferType} from '../../types/offer.type.ts';
 
 export type OfferBlockStyle = 'cities' | 'near-places' | 'favorites';
 export type OfferImageSize = 'small' | 'large';
