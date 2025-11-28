@@ -2,6 +2,6 @@
 import {Location} from './location.type.ts';
 
 export type CityType = {
-  cityName: CityEnum;
+  name: CityEnum;
   location: Location;
 }

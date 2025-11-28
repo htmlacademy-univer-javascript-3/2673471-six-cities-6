@@ -1,5 +1,4 @@
-﻿import {OFFERS} from './mocks/offers.ts';
-import {CityEnum} from './types/city.enum.ts';
+﻿import {CityEnum} from './types/city.enum.ts';
 import {OfferType} from './types/offer.type.ts';
 import {SortOption, SortOptionType} from './types/sortOption.type.ts';
 
@@ -17,18 +16,24 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum ApiRoute {
+  Login = '/login',
+  Logout = '/logout',
+  Favourites = '/favourite',
+  Offers = '/offers',
+  Reviews = '/comments'
+}
+
 export const Settings = {
   AuthorizationStatus: AuthorizationStatus.Auth
 };
-
-export const favorites = OFFERS.filter((offer) => offer.isFavorite);
 
 export function getStars(rating: number): number {
   return Math.round(rating) * 100 / 5;
 }
 
-export function getOffersByCity(city: CityEnum): OfferType[] {
-  return OFFERS.filter((offer) => offer.city.cityName === city);
+export function getOffersByCity(offers: OfferType[], city: CityEnum): OfferType[] {
+  return offers.filter((offer) => offer.city.name === city);
 }
 
 export function sortOffersByOption(offers: OfferType[], sortOption: SortOptionType): OfferType[] {

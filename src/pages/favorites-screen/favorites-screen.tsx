@@ -5,20 +5,20 @@ import {AppRoute} from '../../const.ts';
 import {OfferType} from '../../types/offer.type.ts';
 import {CityEnum} from '../../types/city.enum.ts';
 import Offer from '../../components/offer/offer.tsx';
+import { useAppSelector } from '../../hooks/index.ts';
 
-type FavoritesPageProps = {
-  favorites: OfferType[];
-}
-export default function FavoritesScreen({favorites}: FavoritesPageProps): JSX.Element {
+export default function FavoritesScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const favorites = offers.filter((offer) => offer.isFavorite);
   const groupedByCity = favorites.reduce<Record<CityEnum, OfferType[]>>((acc, offer) => {
-    const city = offer.city.cityName;
+    const city = offer.city.name;
     if (!acc[city]) {
       acc[city] = [];
     }
     acc[city].push(offer);
     return acc;
   }, {} as Record<CityEnum, OfferType[]>);
-  const listFavorites = Object.entries(groupedByCity).map(([city, offers]) => (
+  const listFavorites = Object.entries(groupedByCity).map(([city, allOffers]) => (
     <li className='favorites__locations-items' key={city}>
       <div className='favorites__locations locations locations--current'>
         <div className='locations__item'>
@@ -28,7 +28,7 @@ export default function FavoritesScreen({favorites}: FavoritesPageProps): JSX.El
         </div>
       </div>
       <div className='favorites__places'>
-        {offers.map((offer) => (
+        {allOffers.map((offer) => (
           <Offer offer={offer} key={city} block='favorites' sizeImage='small'></Offer>
         ))}
       </div>

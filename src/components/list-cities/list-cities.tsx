@@ -1,9 +1,9 @@
 ﻿import {Link} from 'react-router-dom';
 import cn from 'classnames';
-import {AppRoute, getOffersByCity} from '../../const.ts';
+import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CityEnum} from '../../types/city.enum.ts';
-import {changeCity, fillListOffers} from '../../store/action.ts';
+import {changeCity} from '../../store/action.ts';
 import {CITIES} from '../../types/location.type.ts';
 
 export default function ListCities(): JSX.Element {
@@ -11,7 +11,6 @@ export default function ListCities(): JSX.Element {
   const dispatch = useAppDispatch();
   const handleClick = (newCity: CityEnum) => {
     dispatch(changeCity({city: newCity}));
-    dispatch(fillListOffers({offers: getOffersByCity(newCity)}));
   };
   return (
     <div className='tabs'>
