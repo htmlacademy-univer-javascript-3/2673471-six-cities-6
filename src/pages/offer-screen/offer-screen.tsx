@@ -1,29 +1,46 @@
 ﻿import {Navigate, useParams} from 'react-router-dom';
-import {OfferType} from '../../types/offer.type.ts';
+import {useEffect} from 'react';
 import {AppRoute, getStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
-import {ReviewType} from '../../types/review.type.ts';
 import ListReviews from '../../components/list-reviews/list-reviews.tsx';
 import Map from '../../components/map/map.tsx';
 import ListOffers from '../../components/list-offers/list-offers.tsx';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setDetailedOffer} from '../../store/action.ts';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
+import {fetchDetailedOfferAction, fetchNearbyOffersAction, fetchReviewsAction} from '../../store/api-actions.ts';
+import {OfferType} from '../../types/offer.type.ts';
 
 type OfferScreenProps = {
-  offers: OfferType[];
-  reviews: ReviewType[];
   favoriteCount: number;
 }
 
-export default function OfferScreen({offers, favoriteCount, reviews}: OfferScreenProps) {
+export default function OfferScreen({favoriteCount}: OfferScreenProps) {
   const {offerId} = useParams();
-  const offer = offers.find((off) => off.id === offerId);
+  const dispatch = useAppDispatch();
+
+  const offer = useAppSelector((state) => state.detailedOffer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const reviews = useAppSelector((state) => state.reviews);
+
   const city = useAppSelector((state) => state.city);
-  if (!offer) {
+  useEffect(() => {
+    if (offerId) {
+      dispatch(fetchDetailedOfferAction(offerId));
+      dispatch(fetchNearbyOffersAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
+    }
+    return () => {
+      dispatch(setDetailedOffer({} as OfferType));
+    };
+  }, [offerId, dispatch]);
+  if (!offerId) {
     return <Navigate to={AppRoute.NotFound}/>;
   }
-  const offerReviews = reviews.filter((review) => review.offerId === offer.id);
-  const nearbyOffers = offers.filter((o) => o.id !== offer.id).slice(0, 3);
+  if (!offer || offer.id !== offerId) {
+    return <LoadingSpinner/>;
+  }
   const mapOffers = [...nearbyOffers, offer];
   return (
     <div className='page'>
@@ -44,7 +61,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
         <section className='offer'>
           <div className='offer__gallery-container container'>
             <div className='offer__gallery'>
-              {offer.images.map((image) => (
+              {offer.images?.map((image) => (
                 <div className='offer__image-wrapper' key={image}>
                   <img className='offer__image' src={image} alt='Photo studio'/>
                 </div>
@@ -79,7 +96,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
               </div>
               <ul className='offer__features'>
                 <li className='offer__feature offer__feature--entire'>
-                  {offer.housingType}
+                  {offer.type}
                 </li>
                 <li className='offer__feature offer__feature--bedrooms'>
                   {offer.bedrooms} Bedrooms
@@ -95,7 +112,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offer.comforts.map((comfort) => (
+                  {offer.comforts?.map((comfort) => (
                     <li className='offer__inside-item' key={comfort}>
                       {comfort}
                     </li>
@@ -108,16 +125,16 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
                   <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
                     <img
                       className='offer__avatar user__avatar'
-                      src={offer.owner.avatarAuthor}
+                      src={offer.owner?.avatarAuthor}
                       width='74' height='74'
                       alt='Host avatar'
                     />
                   </div>
                   <span className='offer__user-name'>
-                    {offer.owner.nameAuthor}
+                    {offer.owner?.nameAuthor}
                   </span>
                   {
-                    offer.owner.isPro &&
+                    offer.owner?.isPro &&
                     <span className='offer__user-status'>
                     Pro
                     </span>
@@ -129,7 +146,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
                   </p>
                 </div>
               </div>
-              <ListReviews reviews={offerReviews}></ListReviews>
+              <ListReviews reviews={reviews}></ListReviews>
             </div>
           </div>
           <Map
@@ -142,7 +159,7 @@ export default function OfferScreen({offers, favoriteCount, reviews}: OfferScree
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
+            <div className='near-places__list places__list'>
               <ListOffers offers={nearbyOffers} block='near-places' size='large' onCardHover={() => null}/>
             </div>
           </section>

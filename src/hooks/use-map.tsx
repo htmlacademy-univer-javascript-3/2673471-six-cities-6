@@ -34,7 +34,7 @@ export default function useMap(
       map.setView({
         lat: CITIES[city].latitude,
         lng: CITIES[city].longitude
-      }, 10);
+      }, CITIES[city].zoom);
     }
   }, [city, map]);
 

@@ -1,9 +1,11 @@
 ﻿export type ReviewType = {
   id: number;
-  offerId: string;
-  authorAvatar: string;
-  authorName: string;
   rating: number;
-  postDate: string;
-  text: string;
+  date: string;
+  comment: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
 };

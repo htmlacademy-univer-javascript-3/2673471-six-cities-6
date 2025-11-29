@@ -1,22 +1,25 @@
 ﻿import {HousingType} from './housing.type';
 import {CityType} from './city.type.ts';
+import {Location} from './location.type.ts';
 
 export type OfferType = {
   id: string;
-  images: string[];
+  previewImage: string;
+  images?: string[];
   title: string;
-  description: string;
+  description?: string;
   isPremium: boolean;
-  housingType: HousingType;
+  type: HousingType;
   rating: number;
-  bedrooms: number;
-  maxGuests: number;
+  bedrooms?: number;
+  maxGuests?: number;
   price: number;
-  comforts: string[];
-  owner: Owner;
+  comforts?: string[];
+  owner?: Owner;
   isFavorite: boolean;
-  commentsCount: number;
+  commentsCount?: number;
   city: CityType;
+  location: Location;
 };
 
 type Owner = {

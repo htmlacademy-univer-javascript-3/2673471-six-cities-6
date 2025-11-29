@@ -9,6 +9,7 @@ import {useAppSelector} from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
 import {SortOption, SortOptionType} from '../../types/sortOption.type.ts';
 import {sortOffersByOption} from '../../const.ts';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 
 type MainProps = {
   favoriteCount: number;
@@ -20,8 +21,13 @@ export default function MainScreen(props: MainProps): JSX.Element {
   const handleCardHover = (offerId: OfferType['id'] | null) => {
     setSelectedOffer(offerId);
   };
+
   const city = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  if (isDataLoading) {
+    return <LoadingSpinner/>;
+  }
   const sortOffers = sortOffersByOption(offers, selectedSortOption);
   return (
     <div className='page page--gray page--main'>

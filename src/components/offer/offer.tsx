@@ -25,7 +25,7 @@ export default function Offer({offer, block, sizeImage}: OfferProps) {
       }
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${offer.id}`}>
-          <img className='place-card__image' src={offer.images[0]} {...sizeImageRecord[sizeImage]} alt={offer.title}/>
+          <img className='place-card__image' src={offer.previewImage} {...sizeImageRecord[sizeImage]} alt={offer.title}/>
         </Link>
       </div>
       <div className='place-card__info'>
@@ -50,7 +50,7 @@ export default function Offer({offer, block, sizeImage}: OfferProps) {
         <h2 className='place-card__name'>
           <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className='place-card__type'>{offer.housingType}</p>
+        <p className='place-card__type'>{offer.type}</p>
       </div>
     </article>
   );
