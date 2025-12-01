@@ -1,12 +1,16 @@
-﻿import { ReviewType } from '../../types/review.type.ts';
+﻿import {ReviewType} from '../../types/review.type.ts';
 import Review from '../review/review';
 import ReviewForm from '../review-form/review-form';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../const.ts';
 
 type ListReviewsProps = {
   reviews: ReviewType[];
+  offerId: string;
 }
 
-export default function ListReviews({ reviews }: ListReviewsProps) {
+export default function ListReviews({ reviews, offerId }: ListReviewsProps) {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <section className='offer__reviews reviews'>
       <h2 className='reviews__title'>
@@ -17,7 +21,9 @@ export default function ListReviews({ reviews }: ListReviewsProps) {
           <Review key={review.id} review={review} />
         ))}
       </ul>
-      <ReviewForm />
+      {
+        authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerId}/>
+      }
     </section>
   );
 }

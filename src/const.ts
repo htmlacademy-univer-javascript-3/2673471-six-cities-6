@@ -21,12 +21,9 @@ export enum ApiRoute {
   Logout = '/logout',
   Favourites = '/favourite',
   Offers = '/offers',
-  Reviews = '/comments'
+  Reviews = '/comments',
+  NotFound = '*'
 }
-
-export const Settings = {
-  AuthorizationStatus: AuthorizationStatus.Auth
-};
 
 export function getStars(rating: number): number {
   return Math.round(rating) * 100 / 5;
@@ -49,6 +46,10 @@ export function sortOffersByOption(offers: OfferType[], sortOption: SortOptionTy
     default:
       return offers;
   }
+}
+
+export function getFavorites(offers: OfferType[]): OfferType[] {
+  return offers.filter((offer) => offer.isFavorite);
 }
 
 export const URL_MARKER_DEFAULT = 'public/img/pin.svg';

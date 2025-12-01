@@ -1,9 +1,19 @@
 ﻿import {createReducer} from '@reduxjs/toolkit';
 import {CityEnum} from '../types/city.enum.ts';
 import {OfferType} from '../types/offer.type.ts';
-import {changeCity, setAllOffers, setReviews, setDetailedOffer, setLoadingStatus, setNearbyOffers} from './action.ts';
+import {
+  changeCity,
+  setAllOffers,
+  setReviews,
+  setDetailedOffer,
+  setLoadingStatus,
+  setNearbyOffers,
+  requireAuthorization, setUserData
+} from './action.ts';
 import {ReviewType} from '../types/review.type.ts';
-import {getOffersByCity} from '../const.ts';
+import {AuthorizationStatus, getOffersByCity} from '../const.ts';
+import {AuthInfo} from '../types/auth-info.ts';
+import {postReviewAction} from './api-actions.ts';
 
 const initialState: {
   city: CityEnum;
@@ -13,6 +23,8 @@ const initialState: {
   reviews: ReviewType[];
   detailedOffer: OfferType;
   nearbyOffers: OfferType[];
+  authorizationStatus: AuthorizationStatus;
+  userData: AuthInfo | null;
 } = {
   city: CityEnum.Paris,
   allOffers: [],
@@ -21,6 +33,8 @@ const initialState: {
   isDataLoading: true,
   detailedOffer: {} as OfferType,
   nearbyOffers: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userData: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -44,5 +58,14 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadingStatus, (state, action) => {
       state.isDataLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
+    })
+    .addCase(postReviewAction.fulfilled, (state, action) => {
+      state.reviews.push(action.payload);
     });
 });

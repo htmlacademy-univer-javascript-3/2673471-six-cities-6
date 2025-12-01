@@ -1,26 +1,22 @@
-﻿import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const.ts';
+﻿import {Route, Routes} from 'react-router-dom';
+import {AppRoute} from '../../const.ts';
 import MainScreen from '../../pages/main-screen/main-screen.tsx';
 import NotFound from '../../pages/not-found-screen/not-found-screen.tsx';
 import LoginScreen from '../../pages/login-screen/login-screen.tsx';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
 import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
+import HistoryRouter from '../history-route/history-route.tsx';
+import {browserHistory} from '../../browser-history.ts';
 
-type AppProps = {
-  authorizationStatus: AuthorizationStatus;
-}
-
-export default function App({authorizationStatus}: AppProps) {
+export default function App() {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
           element={
-            <MainScreen
-              favoriteCount={0}
-            />
+            <MainScreen/>
           }
         />
         <Route
@@ -30,7 +26,7 @@ export default function App({authorizationStatus}: AppProps) {
         <Route
           path={AppRoute.Favourites}
           element={
-            <PrivateRoute authorizationStatus={authorizationStatus} redirectTo={AppRoute.Login}>
+            <PrivateRoute redirectTo={AppRoute.Login}>
               <FavoritesScreen/>
             </PrivateRoute>
           }
@@ -38,9 +34,7 @@ export default function App({authorizationStatus}: AppProps) {
         <Route
           path={`${AppRoute.Offer}/:offerId`}
           element={
-            <OfferScreen
-              favoriteCount={0}
-            />
+            <OfferScreen/>
           }
         />
         <Route
@@ -48,6 +42,6 @@ export default function App({authorizationStatus}: AppProps) {
           element={<NotFound/>}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
