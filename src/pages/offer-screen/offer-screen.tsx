@@ -24,9 +24,14 @@ export default function OfferScreen() {
   const city = useAppSelector((state) => state.city);
   useEffect(() => {
     if (offerId) {
-      dispatch(fetchDetailedOfferAction(offerId));
-      dispatch(fetchNearbyOffersAction(offerId));
-      dispatch(fetchReviewsAction(offerId));
+      dispatch(fetchDetailedOfferAction(offerId))
+        .unwrap()
+        .then((detailOffer) => {
+          if (detailOffer) {
+            dispatch(fetchNearbyOffersAction(offerId));
+            dispatch(fetchReviewsAction(offerId));
+          }
+        });
     }
     return () => {
       dispatch(setDetailedOffer({} as OfferType));

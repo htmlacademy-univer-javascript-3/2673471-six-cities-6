@@ -31,18 +31,22 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
+export const fetchDetailedOfferAction = createAsyncThunk<OfferType, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
+  rejectValue: string;
 }>(
   'data/fetchDetailedOffer',
-  async (offerId, {dispatch, extra: api}) => {
-    // try { в след задании хотел поправить
-    const {data} = await api.get<OfferType>(`${ApiRoute.Offers}/${offerId}`);
-    dispatch(setDetailedOffer(data));
-    //} catch (error) {
-    //}
+  async (offerId, {dispatch, extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.get<OfferType>(`${ApiRoute.Offers}/${offerId}`);
+      dispatch(setDetailedOffer(data));
+      return data;
+    } catch (error) {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+      return rejectWithValue((error as AxiosError).message);
+    }
   },
 );
 
@@ -52,7 +56,6 @@ export const fetchReviewsAction = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>(
   'data/fetchReviews',
-
   async (offerId, {dispatch, extra: api}) => {
     const {data} = await api.get<ReviewType[]>(`${ApiRoute.Reviews}/${offerId}`);
     dispatch(setReviews({reviews: data}));
