@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
+import {ToastContainer} from 'react-toastify';
 import 'leaflet/dist/leaflet.css';
 import App from './components/app/app.tsx';
-import {Settings} from './const.ts';
 import {store} from './store';
-import {fetchOffersAction} from './store/api-actions.ts';
+import {checkAuthAction, fetchOffersAction} from './store/api-actions.ts';
 
 store.dispatch(fetchOffersAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App authorizationStatus={Settings.AuthorizationStatus}/>
+      <ToastContainer />
+      <App />
     </Provider>
   </React.StrictMode>
 );

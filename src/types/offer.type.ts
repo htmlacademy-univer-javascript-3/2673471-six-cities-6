@@ -12,10 +12,10 @@ export type OfferType = {
   type: HousingType;
   rating: number;
   bedrooms?: number;
-  maxGuests?: number;
+  maxAdults?: number;
   price: number;
-  comforts?: string[];
-  owner?: Owner;
+  goods?: string[];
+  host?: Owner;
   isFavorite: boolean;
   commentsCount?: number;
   city: CityType;
@@ -23,7 +23,7 @@ export type OfferType = {
 };
 
 type Owner = {
-  avatarAuthor: string;
-  nameAuthor: string;
+  avatarUrl: string;
+  name: string;
   isPro: boolean;
 };

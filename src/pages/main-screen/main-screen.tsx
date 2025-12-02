@@ -8,14 +8,10 @@ import ListCities from '../../components/list-cities/list-cities.tsx';
 import {useAppSelector} from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
 import {SortOption, SortOptionType} from '../../types/sortOption.type.ts';
-import {sortOffersByOption} from '../../const.ts';
+import {getFavorites, sortOffersByOption} from '../../const.ts';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 
-type MainProps = {
-  favoriteCount: number;
-}
-
-export default function MainScreen(props: MainProps): JSX.Element {
+export default function MainScreen(): JSX.Element {
   const [selectedOfferId, setSelectedOffer] = useState<OfferType['id'] | null>(null);
   const [selectedSortOption, setSelectedSortOption] = useState<SortOptionType>(SortOption.Popular);
   const handleCardHover = (offerId: OfferType['id'] | null) => {
@@ -24,6 +20,8 @@ export default function MainScreen(props: MainProps): JSX.Element {
 
   const city = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const allOffers = useAppSelector((state) => state.allOffers);
+  const favoriteCount = getFavorites(allOffers).length;
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
   if (isDataLoading) {
     return <LoadingSpinner/>;
@@ -35,10 +33,10 @@ export default function MainScreen(props: MainProps): JSX.Element {
         <div className='container'>
           <div className='header__wrapper'>
             <div className='header__left'>
-              <Logo/>
+              <Logo />
             </div>
             <nav className='header__nav'>
-              <HeaderNav favoriteCount={props.favoriteCount}/>
+              <HeaderNav favoriteCount={favoriteCount}/>
             </nav>
           </div>
         </div>

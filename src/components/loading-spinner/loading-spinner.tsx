@@ -4,7 +4,7 @@ export default function LoadingSpinner(): JSX.Element {
   return (
     <div className="spinner-container">
       <div className="spinner"></div>
-      <p className="spinner-text">Loading offers...</p>
+      <p className="spinner-text">Loading ...</p>
     </div>
   );
 }

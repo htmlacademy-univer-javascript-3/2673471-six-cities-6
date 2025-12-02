@@ -1,6 +1,6 @@
 ﻿import {Navigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
-import {AppRoute, getStars} from '../../const.ts';
+import {AppRoute, getFavorites, getStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import ListReviews from '../../components/list-reviews/list-reviews.tsx';
@@ -12,18 +12,15 @@ import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx
 import {fetchDetailedOfferAction, fetchNearbyOffersAction, fetchReviewsAction} from '../../store/api-actions.ts';
 import {OfferType} from '../../types/offer.type.ts';
 
-type OfferScreenProps = {
-  favoriteCount: number;
-}
 
-export default function OfferScreen({favoriteCount}: OfferScreenProps) {
+export default function OfferScreen() {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
-
+  const allOffers = useAppSelector((state) => state.allOffers);
   const offer = useAppSelector((state) => state.detailedOffer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const reviews = useAppSelector((state) => state.reviews);
-
+  const favoriteCount = getFavorites(allOffers).length;
   const city = useAppSelector((state) => state.city);
   useEffect(() => {
     if (offerId) {
@@ -102,7 +99,7 @@ export default function OfferScreen({favoriteCount}: OfferScreenProps) {
                   {offer.bedrooms} Bedrooms
                 </li>
                 <li className='offer__feature offer__feature--adults'>
-                  Max {offer.maxGuests} adults
+                  Max {offer.maxAdults} adults
                 </li>
               </ul>
               <div className='offer__price'>
@@ -112,9 +109,9 @@ export default function OfferScreen({favoriteCount}: OfferScreenProps) {
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offer.comforts?.map((comfort) => (
-                    <li className='offer__inside-item' key={comfort}>
-                      {comfort}
+                  {offer.goods?.map((good) => (
+                    <li className='offer__inside-item' key={good}>
+                      {good}
                     </li>
                   ))}
                 </ul>
@@ -125,16 +122,16 @@ export default function OfferScreen({favoriteCount}: OfferScreenProps) {
                   <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
                     <img
                       className='offer__avatar user__avatar'
-                      src={offer.owner?.avatarAuthor}
+                      src={offer.host?.avatarUrl}
                       width='74' height='74'
                       alt='Host avatar'
                     />
                   </div>
                   <span className='offer__user-name'>
-                    {offer.owner?.nameAuthor}
+                    {offer.host?.name}
                   </span>
                   {
-                    offer.owner?.isPro &&
+                    offer.host?.isPro &&
                     <span className='offer__user-status'>
                     Pro
                     </span>
@@ -146,7 +143,7 @@ export default function OfferScreen({favoriteCount}: OfferScreenProps) {
                   </p>
                 </div>
               </div>
-              <ListReviews reviews={reviews}></ListReviews>
+              <ListReviews offerId={offerId} reviews={reviews}/>
             </div>
           </div>
           <Map
