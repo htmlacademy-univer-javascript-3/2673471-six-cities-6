@@ -1,12 +1,13 @@
 ﻿import { ReviewType } from '../../types/review.type.ts';
 import { getStars } from '../../const.ts';
+import {memo} from "react";
 
 type ReviewProps = {
   review: ReviewType;
 }
 
 
-export default function Review({ review }: ReviewProps) {
+function Review({ review }: ReviewProps) {
   return (
     <li className='reviews__item'>
       <div className='reviews__user user'>
@@ -34,3 +35,5 @@ export default function Review({ review }: ReviewProps) {
     </li>
   );
 }
+
+export default memo(Review);

@@ -1,4 +1,5 @@
-﻿import {OfferType} from '../../types/offer.type.ts';
+﻿import { memo } from 'react';
+import {OfferType} from '../../types/offer.type.ts';
 import Offer, {OfferBlockStyle, OfferImageSize} from '../offer/offer.tsx';
 
 type ListOffersProps = {
@@ -8,7 +9,7 @@ type ListOffersProps = {
   onCardHover: (offer: OfferType['id'] | null) => void;
 }
 
-export default function ListOffers(props: ListOffersProps) {
+function ListOffers(props: ListOffersProps) {
   const handleMouseOver = (offerId: OfferType['id'] | null) => {
     props.onCardHover(offerId);
   };
@@ -26,3 +27,5 @@ export default function ListOffers(props: ListOffersProps) {
     </>
   );
 }
+
+export default memo(ListOffers);

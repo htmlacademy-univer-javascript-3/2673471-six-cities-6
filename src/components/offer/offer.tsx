@@ -1,6 +1,7 @@
 ﻿import {Link} from 'react-router-dom';
 import {AppRoute, getStars} from '../../const.ts';
 import {OfferType} from '../../types/offer.type.ts';
+import {memo} from "react";
 
 export type OfferBlockStyle = 'cities' | 'near-places' | 'favorites';
 export type OfferImageSize = 'small' | 'large';
@@ -14,7 +15,7 @@ const sizeImageRecord: Record<OfferImageSize, {width: string; height: string}> =
   large: { width: '260', height: '200'}
 };
 
-export default function Offer({offer, block, sizeImage}: OfferProps) {
+function Offer({offer, block, sizeImage}: OfferProps) {
   return (
     <article className={`${block}__card place-card`}>
       {
@@ -55,3 +56,5 @@ export default function Offer({offer, block, sizeImage}: OfferProps) {
     </article>
   );
 }
+
+export default memo(Offer)

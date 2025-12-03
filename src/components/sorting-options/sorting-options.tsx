@@ -1,4 +1,4 @@
-﻿import {useState} from 'react';
+﻿import {memo, useState} from 'react';
 import cn from 'classnames';
 import {SortOption, SortOptionType} from '../../types/sortOption.type.ts';
 
@@ -6,7 +6,7 @@ type SortingOptionsProps = {
   currentOption: SortOptionType;
   onChangeSortOption: (option: SortOptionType) => void;
 }
-export default function SortingOptions({currentOption, onChangeSortOption}: SortingOptionsProps) {
+function SortingOptions({currentOption, onChangeSortOption}: SortingOptionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const handleOptionClick = (option: SortOptionType) => {
     onChangeSortOption(option);
@@ -45,3 +45,5 @@ export default function SortingOptions({currentOption, onChangeSortOption}: Sort
     </form>
   );
 }
+
+export default memo(SortingOptions);

@@ -1,11 +1,17 @@
-﻿import {useState} from 'react';
+﻿import {memo, useState} from 'react';
 import {fetchReviewsAction, postReviewAction} from '../../store/api-actions.ts';
 import {useAppDispatch} from '../../hooks';
 
 type ReviewFormProps = {
   offerId: string;
 }
-export default function ReviewForm({offerId}: ReviewFormProps) {
+
+const MAX_REVIEW_LENGTH = 300;
+const MIN_REVIEW_LENGTH = 50;
+const MIN_RATING = 1;
+const MAX_RATING = 5;
+
+function ReviewForm({offerId}: ReviewFormProps) {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     text: '',
@@ -24,8 +30,8 @@ export default function ReviewForm({offerId}: ReviewFormProps) {
       text: e.target.value
     });
   };
-  const isTextValid = formData.text.length >= 50 && formData.text.length <= 300;
-  const isRatingValid = formData.rating > 0 && formData.rating <= 5;
+  const isTextValid = formData.text.length >= MIN_REVIEW_LENGTH && formData.text.length <= MAX_REVIEW_LENGTH;
+  const isRatingValid = formData.rating >= MIN_RATING && formData.rating <= MAX_RATING;
   const isSubmitDisabled = !isTextValid || !isRatingValid;
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,3 +120,5 @@ export default function ReviewForm({offerId}: ReviewFormProps) {
       </div>
     </form>);
 }
+
+export default memo(ReviewForm);

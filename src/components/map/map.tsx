@@ -1,4 +1,4 @@
-﻿import {useEffect, useRef} from 'react';
+﻿import {memo, useEffect, useRef} from 'react';
 import {layerGroup, Marker} from 'leaflet';
 import leaflet from 'leaflet';
 import useMap from '../../hooks/use-map.tsx';
@@ -25,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({city, offers, selectedOfferId, block}: MapProps): JSX.Element {
+function Map({city, offers, selectedOfferId, block}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -58,3 +58,5 @@ export default function Map({city, offers, selectedOfferId, block}: MapProps): J
     />
   );
 }
+
+export default memo(Map);

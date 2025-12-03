@@ -2,12 +2,13 @@
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions.ts';
+import {memo} from "react";
 
 type HeaderNavProps = {
   favoriteCount: number;
 }
 
-export default function HeaderNav({favoriteCount}: HeaderNavProps) {
+function HeaderNav({favoriteCount}: HeaderNavProps) {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const userData = useAppSelector((state) => state.userData);
   const dispatch = useAppDispatch();
@@ -49,3 +50,5 @@ export default function HeaderNav({favoriteCount}: HeaderNavProps) {
     </ul>
   );
 }
+
+export default memo(HeaderNav);

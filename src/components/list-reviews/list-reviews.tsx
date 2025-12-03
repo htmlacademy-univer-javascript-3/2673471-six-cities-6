@@ -1,16 +1,16 @@
 ﻿import {ReviewType} from '../../types/review.type.ts';
 import Review from '../review/review';
 import ReviewForm from '../review-form/review-form';
-import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const.ts';
+import {memo} from "react";
 
 type ListReviewsProps = {
   reviews: ReviewType[];
   offerId: string;
+  authorizationStatus: AuthorizationStatus;
 }
 
-export default function ListReviews({ reviews, offerId }: ListReviewsProps) {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+function ListReviews({ reviews, offerId, authorizationStatus }: ListReviewsProps) {
   return (
     <section className='offer__reviews reviews'>
       <h2 className='reviews__title'>
@@ -27,3 +27,5 @@ export default function ListReviews({ reviews, offerId }: ListReviewsProps) {
     </section>
   );
 }
+
+export default memo(ListReviews);
