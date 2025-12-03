@@ -1,12 +1,13 @@
 ﻿import {Link} from 'react-router-dom';
 import cn from 'classnames';
+import {memo} from 'react';
 import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CityEnum} from '../../types/city.enum.ts';
 import {changeCity} from '../../store/action.ts';
 import {CITIES} from '../../types/location.type.ts';
 
-export default function ListCities(): JSX.Element {
+function ListCities(): JSX.Element {
   const city = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
   const handleClick = (newCity: CityEnum) => {
@@ -35,3 +36,5 @@ export default function ListCities(): JSX.Element {
     </div>
   );
 }
+
+export default memo(ListCities);

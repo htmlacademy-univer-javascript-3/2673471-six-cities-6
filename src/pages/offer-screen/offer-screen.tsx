@@ -1,5 +1,5 @@
 ﻿import {Navigate, useParams} from 'react-router-dom';
-import {useEffect} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import {AppRoute, getFavorites, getStars} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
@@ -13,15 +13,17 @@ import {fetchDetailedOfferAction, fetchNearbyOffersAction, fetchReviewsAction} f
 import {OfferType} from '../../types/offer.type.ts';
 
 
-export default function OfferScreen() {
+function OfferScreen() {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const allOffers = useAppSelector((state) => state.allOffers);
   const offer = useAppSelector((state) => state.detailedOffer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const reviews = useAppSelector((state) => state.reviews);
   const favoriteCount = getFavorites(allOffers).length;
   const city = useAppSelector((state) => state.city);
+  const handleCardHover = useCallback(() => null, []);
   useEffect(() => {
     if (offerId) {
       dispatch(fetchDetailedOfferAction(offerId))
@@ -148,7 +150,7 @@ export default function OfferScreen() {
                   </p>
                 </div>
               </div>
-              <ListReviews offerId={offerId} reviews={reviews}/>
+              <ListReviews offerId={offerId} reviews={reviews} authorizationStatus={authorizationStatus}/>
             </div>
           </div>
           <Map
@@ -162,7 +164,7 @@ export default function OfferScreen() {
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              <ListOffers offers={nearbyOffers} block='near-places' size='large' onCardHover={() => null}/>
+              <ListOffers offers={nearbyOffers} block='near-places' size='large' onCardHover={handleCardHover}/>
             </div>
           </section>
         </div>
@@ -170,3 +172,5 @@ export default function OfferScreen() {
     </div>
   );
 }
+
+export default memo(OfferScreen);

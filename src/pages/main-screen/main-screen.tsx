@@ -1,4 +1,4 @@
-﻿import {useState} from 'react';
+﻿import {useCallback, useMemo, useState} from 'react';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {OfferType} from '../../types/offer.type.ts';
@@ -14,26 +14,33 @@ import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx
 export default function MainScreen(): JSX.Element {
   const [selectedOfferId, setSelectedOffer] = useState<OfferType['id'] | null>(null);
   const [selectedSortOption, setSelectedSortOption] = useState<SortOptionType>(SortOption.Popular);
-  const handleCardHover = (offerId: OfferType['id'] | null) => {
+
+  const handleCardHover = useCallback((offerId: OfferType['id'] | null) => {
     setSelectedOffer(offerId);
-  };
+  }, []);
 
   const city = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const allOffers = useAppSelector((state) => state.allOffers);
   const favoriteCount = getFavorites(allOffers).length;
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
+
+  const sortOffers = useMemo(() =>
+    sortOffersByOption(offers, selectedSortOption),
+  [offers, selectedSortOption]
+  );
+
   if (isDataLoading) {
     return <LoadingSpinner/>;
   }
-  const sortOffers = sortOffersByOption(offers, selectedSortOption);
+
   return (
     <div className='page page--gray page--main'>
       <header className='header'>
         <div className='container'>
           <div className='header__wrapper'>
             <div className='header__left'>
-              <Logo />
+              <Logo/>
             </div>
             <nav className='header__nav'>
               <HeaderNav favoriteCount={favoriteCount}/>
@@ -50,7 +57,10 @@ export default function MainScreen(): JSX.Element {
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
               <b className='places__found'>{offers.length} places to stay in {city}</b>
-              <SortingOptions onChangeSortOption={setSelectedSortOption} currentOption={selectedSortOption}></SortingOptions>
+              <SortingOptions
+                onChangeSortOption={setSelectedSortOption}
+                currentOption={selectedSortOption}
+              />
               <div className='cities__places-list places__list tabs__content'>
                 <ListOffers
                   offers={sortOffers}
