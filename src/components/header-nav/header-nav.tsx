@@ -1,8 +1,8 @@
 ﻿import {Link} from 'react-router-dom';
+import {memo} from 'react';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions.ts';
-import {memo} from "react";
 
 type HeaderNavProps = {
   favoriteCount: number;

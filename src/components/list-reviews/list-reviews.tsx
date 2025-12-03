@@ -1,8 +1,8 @@
-﻿import {ReviewType} from '../../types/review.type.ts';
+﻿import {memo} from 'react';
+import {ReviewType} from '../../types/review.type.ts';
 import Review from '../review/review';
 import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../const.ts';
-import {memo} from "react";
 
 type ListReviewsProps = {
   reviews: ReviewType[];

@@ -1,6 +1,6 @@
-﻿import { ReviewType } from '../../types/review.type.ts';
+﻿import {memo} from 'react';
+import { ReviewType } from '../../types/review.type.ts';
 import { getStars } from '../../const.ts';
-import {memo} from "react";
 
 type ReviewProps = {
   review: ReviewType;

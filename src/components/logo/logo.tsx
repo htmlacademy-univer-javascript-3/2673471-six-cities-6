@@ -1,6 +1,6 @@
 ﻿import {Link} from 'react-router-dom';
+import {memo} from 'react';
 import {AppRoute} from '../../const.ts';
-import {memo} from "react";
 
 function Logo() {
   return (

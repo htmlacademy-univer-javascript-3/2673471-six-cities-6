@@ -1,7 +1,7 @@
 ﻿import {Link} from 'react-router-dom';
+import {memo} from 'react';
 import {AppRoute, getStars} from '../../const.ts';
 import {OfferType} from '../../types/offer.type.ts';
-import {memo} from "react";
 
 export type OfferBlockStyle = 'cities' | 'near-places' | 'favorites';
 export type OfferImageSize = 'small' | 'large';
@@ -57,4 +57,4 @@ function Offer({offer, block, sizeImage}: OfferProps) {
   );
 }
 
-export default memo(Offer)
+export default memo(Offer);

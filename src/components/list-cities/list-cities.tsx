@@ -1,11 +1,11 @@
 ﻿import {Link} from 'react-router-dom';
 import cn from 'classnames';
+import {memo} from 'react';
 import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CityEnum} from '../../types/city.enum.ts';
 import {changeCity} from '../../store/action.ts';
 import {CITIES} from '../../types/location.type.ts';
-import {memo} from "react";
 
 function ListCities(): JSX.Element {
   const city = useAppSelector((state) => state.city);

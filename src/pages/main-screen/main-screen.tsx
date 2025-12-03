@@ -26,8 +26,8 @@ export default function MainScreen(): JSX.Element {
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
 
   const sortOffers = useMemo(() =>
-      sortOffersByOption(offers, selectedSortOption),
-    [offers, selectedSortOption]
+    sortOffersByOption(offers, selectedSortOption),
+  [offers, selectedSortOption]
   );
 
   if (isDataLoading) {
