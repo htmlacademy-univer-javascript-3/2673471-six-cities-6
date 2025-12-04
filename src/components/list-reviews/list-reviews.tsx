@@ -1,8 +1,8 @@
 ﻿import {memo} from 'react';
 import {ReviewType} from '../../types/review.type.ts';
-import Review from '../review/review';
 import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../const.ts';
+import ListReviewsItems from "../list-reviews-items/list-reviews-items.tsx";
 
 type ListReviewsProps = {
   reviews: ReviewType[];
@@ -16,11 +16,7 @@ function ListReviews({ reviews, offerId, authorizationStatus }: ListReviewsProps
       <h2 className='reviews__title'>
         Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>
       </h2>
-      <ul className='reviews__list'>
-        {reviews.map((review) => (
-          <Review key={review.id} review={review} />
-        ))}
-      </ul>
+      <ListReviewsItems reviews={reviews} />
       {
         authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerId}/>
       }

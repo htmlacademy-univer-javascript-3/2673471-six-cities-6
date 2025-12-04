@@ -1,31 +1,24 @@
-﻿import { memo } from 'react';
+﻿import {memo} from 'react';
 import {OfferType} from '../../types/offer.type.ts';
-import Offer, {OfferBlockStyle, OfferImageSize} from '../offer/offer.tsx';
+import {MemoizedOffer, OfferBlockStyle, OfferImageSize} from '../offer/offer.tsx';
 
 type ListOffersProps = {
   offers: OfferType[];
   block: OfferBlockStyle;
   size: OfferImageSize;
   onCardHover: (offer: OfferType['id'] | null) => void;
+  className: string;
 }
 
 function ListOffers(props: ListOffersProps) {
-  const handleMouseOver = (offerId: OfferType['id'] | null) => {
-    props.onCardHover(offerId);
-  };
   return (
-    <>
+    <div className={props.className}>
       {props.offers.map((offer) => (
-        <div
-          key={offer.id}
-          onMouseEnter={() => handleMouseOver(offer.id)}
-          onMouseLeave={() => handleMouseOver(null)}
-        >
-          <Offer offer={offer} block={props.block} sizeImage={props.size}/>
-        </div>
+        <MemoizedOffer offer={offer} block={props.block} sizeImage={props.size} key={offer.id}
+                       onCardHover={props.onCardHover}/>
       ))}
-    </>
+    </div>
   );
 }
 
-export default memo(ListOffers);
+export const MemoizedListOffers = memo(ListOffers);

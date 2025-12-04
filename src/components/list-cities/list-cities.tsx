@@ -4,11 +4,12 @@ import {memo} from 'react';
 import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CityEnum} from '../../types/city.enum.ts';
-import {changeCity} from '../../store/action.ts';
 import {CITIES} from '../../types/location.type.ts';
+import {getCity} from "../../store/offers/selectors.ts";
+import {changeCity} from "../../store/offers/offers.ts";
 
 function ListCities(): JSX.Element {
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector(getCity);
   const dispatch = useAppDispatch();
   const handleClick = (newCity: CityEnum) => {
     dispatch(changeCity({city: newCity}));

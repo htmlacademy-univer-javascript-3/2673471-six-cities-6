@@ -2,14 +2,17 @@
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
 import {OfferType} from '../../types/offer.type.ts';
-import ListOffers from '../../components/list-offers/list-offers.tsx';
+import {MemoizedListOffers} from '../../components/list-offers/list-offers.tsx';
 import Map from '../../components/map/map.tsx';
 import ListCities from '../../components/list-cities/list-cities.tsx';
 import {useAppSelector} from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
 import {SortOption, SortOptionType} from '../../types/sortOption.type.ts';
-import {getFavorites, sortOffersByOption} from '../../const.ts';
+import {sortOffersByOption} from '../../const.ts';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
+import {getCity, getOffers, getOffersLoadingStatus} from "../../store/offers/selectors.ts";
+import {getFavoriteOffers, getFavoritesLoadingStatus} from "../../store/favorites/selectors.ts";
+import MainEmptyScreen from "./main-empty-screen.tsx";
 
 export default function MainScreen(): JSX.Element {
   const [selectedOfferId, setSelectedOffer] = useState<OfferType['id'] | null>(null);
@@ -19,21 +22,23 @@ export default function MainScreen(): JSX.Element {
     setSelectedOffer(offerId);
   }, []);
 
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const allOffers = useAppSelector((state) => state.allOffers);
-  const favoriteCount = getFavorites(allOffers).length;
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
+  const favoriteCount = useAppSelector(getFavoriteOffers).length;
+  const isDataLoading = useAppSelector(getOffersLoadingStatus);
+  const isFavoritesLoading = useAppSelector(getFavoritesLoadingStatus);
 
   const sortOffers = useMemo(() =>
-    sortOffersByOption(offers, selectedSortOption),
-  [offers, selectedSortOption]
+      sortOffersByOption(offers, selectedSortOption),
+    [offers, selectedSortOption]
   );
 
-  if (isDataLoading) {
+  if (isDataLoading || isFavoritesLoading) {
     return <LoadingSpinner/>;
   }
-
+  if (offers.length === 0) {
+    return <MainEmptyScreen/>
+  }
   return (
     <div className='page page--gray page--main'>
       <header className='header'>
@@ -61,14 +66,13 @@ export default function MainScreen(): JSX.Element {
                 onChangeSortOption={setSelectedSortOption}
                 currentOption={selectedSortOption}
               />
-              <div className='cities__places-list places__list tabs__content'>
-                <ListOffers
-                  offers={sortOffers}
-                  block='cities'
-                  size='large'
-                  onCardHover={handleCardHover}
-                />
-              </div>
+              <MemoizedListOffers
+                className={'cities__places-list places__list tabs__content'}
+                offers={sortOffers}
+                block='cities'
+                size='large'
+                onCardHover={handleCardHover}
+              />
             </section>
             <div className='cities__right-section'>
               <Map
