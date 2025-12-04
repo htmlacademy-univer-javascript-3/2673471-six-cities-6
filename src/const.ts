@@ -5,7 +5,7 @@ import {SortOption, SortOptionType} from './types/sortOption.type.ts';
 export enum AppRoute {
   Main = '/',
   Login = '/login',
-  Favourites = '/favourites',
+  Favourites = '/favorites',
   Offer = '/offer',
   NotFound = '*'
 }
@@ -19,12 +19,18 @@ export enum AuthorizationStatus {
 export enum ApiRoute {
   Login = '/login',
   Logout = '/logout',
-  Favourites = '/favourite',
+  Favorites = '/favorite',
   Offers = '/offers',
   Reviews = '/comments',
   NotFound = '*'
 }
 
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Favorites = 'FAVORITES',
+  Reviews = 'REVIEWS',
+}
 export function getStars(rating: number): number {
   return Math.round(rating) * 100 / 5;
 }
@@ -46,10 +52,6 @@ export function sortOffersByOption(offers: OfferType[], sortOption: SortOptionTy
     default:
       return offers;
   }
-}
-
-export function getFavorites(offers: OfferType[]): OfferType[] {
-  return offers.filter((offer) => offer.isFavorite);
 }
 
 export const URL_MARKER_DEFAULT = 'public/img/pin.svg';

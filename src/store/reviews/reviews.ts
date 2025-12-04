@@ -1,7 +1,7 @@
-import {ReviewType} from "../../types/review.type.ts";
-import {createSlice} from "@reduxjs/toolkit";
-import {fetchReviewsAction, postReviewAction} from "../api-actions.ts";
-import {NameSpace} from "../../const.ts";
+import {createSlice} from '@reduxjs/toolkit';
+import {ReviewType} from '../../types/review.type.ts';
+import {fetchReviewsAction, postReviewAction} from '../api-actions.ts';
+import {NameSpace} from '../../const.ts';
 
 type ReviewsState = {
   reviews: ReviewType[];
@@ -9,7 +9,7 @@ type ReviewsState = {
 
 const initialState: ReviewsState = {
   reviews: [],
-}
+};
 
 export const reviewsSlice = createSlice({
   name: NameSpace.Reviews,
@@ -27,6 +27,6 @@ export const reviewsSlice = createSlice({
         state.reviews = [...state.reviews, action.payload]
           .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
           .slice(0, 10);
-      })
+      });
   }
-})
+});

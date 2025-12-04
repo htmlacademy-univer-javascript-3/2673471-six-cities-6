@@ -2,19 +2,23 @@
 import {memo} from 'react';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction} from '../../store/api-actions.ts';
+import {fetchFavoritesAction, fetchOffersAction, logoutAction} from '../../store/api-actions.ts';
+import {getAuthorizationStatus, getUserData} from '../../store/user/selectors.ts';
 
 type HeaderNavProps = {
   favoriteCount: number;
 }
 
 function HeaderNav({favoriteCount}: HeaderNavProps) {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const userData = useAppSelector((state) => state.userData);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
   const handleSignOut = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    dispatch(logoutAction());
+    dispatch(logoutAction()).unwrap().then(() => {
+      dispatch(fetchOffersAction());
+      dispatch(fetchFavoritesAction());
+    });
   };
   if (authorizationStatus === AuthorizationStatus.Auth && userData) {
     return (

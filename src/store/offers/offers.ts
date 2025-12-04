@@ -1,13 +1,13 @@
-import {OfferType} from "../../types/offer.type.ts";
-import {CityEnum} from "../../types/city.enum.ts";
-import {createSlice} from "@reduxjs/toolkit";
-import {getOffersByCity, NameSpace} from "../../const.ts";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {OfferType} from '../../types/offer.type.ts';
+import {CityEnum} from '../../types/city.enum.ts';
+import {getOffersByCity, NameSpace} from '../../const.ts';
 import {
   fetchDetailedOfferAction,
   fetchNearbyOffersAction,
   fetchOffersAction, logoutAction,
   postFavoriteAction
-} from "../api-actions.ts";
+} from '../api-actions.ts';
 
 type OffersState = {
   city: CityEnum;
@@ -27,11 +27,15 @@ const initialState: OffersState = {
   nearbyOffers: [],
 };
 
+type ChangeCityPayload = {
+  city: CityEnum;
+}
+
 export const offersSlice = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    changeCity: (state, action) => {
+    changeCity: (state, action: PayloadAction<ChangeCityPayload>) => {
       state.city = action.payload.city;
       state.offers = getOffersByCity(state.allOffers, state.city);
     },
@@ -80,13 +84,14 @@ export const offersSlice = createSlice({
         const resetFavoriteStatus = (offer: OfferType) => ({
           ...offer,
           isFavorite: false,
-        })
+        });
         state.allOffers = state.allOffers.map(resetFavoriteStatus);
-        if (state.detailedOffer)
-          state.detailedOffer = resetFavoriteStatus(state.detailedOffer)
+        if (state.detailedOffer) {
+          state.detailedOffer = resetFavoriteStatus(state.detailedOffer);
+        }
         state.nearbyOffers = state.nearbyOffers.map(resetFavoriteStatus);
-      })
+      });
   }
-})
+});
 
 export const { changeCity } = offersSlice.actions;

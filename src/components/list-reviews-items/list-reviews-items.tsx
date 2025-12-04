@@ -1,5 +1,5 @@
-﻿import Review from "../review/review.tsx";
-import {ReviewType} from "../../types/review.type.ts";
+﻿import Review from '../review/review.tsx';
+import {ReviewType} from '../../types/review.type.ts';
 
 type ListReviewsItemsProps = {
   reviews: ReviewType[];

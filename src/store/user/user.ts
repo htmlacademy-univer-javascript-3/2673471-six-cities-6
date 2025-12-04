@@ -1,7 +1,7 @@
-﻿import {createSlice} from "@reduxjs/toolkit";
-import {AuthorizationStatus, NameSpace} from "../../const.ts";
-import {AuthInfo} from "../../types/auth-info.ts";
-import {checkAuthAction, loginAction, logoutAction} from "../api-actions.ts";
+﻿import {createSlice} from '@reduxjs/toolkit';
+import {AuthorizationStatus, NameSpace} from '../../const.ts';
+import {AuthInfo} from '../../types/auth-info.ts';
+import {checkAuthAction, loginAction, logoutAction} from '../api-actions.ts';
 
 type UserState = {
   authorizationStatus: AuthorizationStatus;
@@ -37,6 +37,6 @@ export const userSlice = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
-      })
+      });
   }
 });

@@ -1,8 +1,8 @@
-﻿import {State} from "../../types/state.ts";
-import {NameSpace} from "../../const.ts";
-import {createSelector} from "@reduxjs/toolkit";
-import {CityEnum} from "../../types/city.enum.ts";
-import {OfferType} from "../../types/offer.type.ts";
+﻿import {createSelector} from '@reduxjs/toolkit';
+import {State} from '../../types/state.ts';
+import {NameSpace} from '../../const.ts';
+import {CityEnum} from '../../types/city.enum.ts';
+import {OfferType} from '../../types/offer.type.ts';
 
 const getFavoritesState = (state: State) => state[NameSpace.Favorites];
 

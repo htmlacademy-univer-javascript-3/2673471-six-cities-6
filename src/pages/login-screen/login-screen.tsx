@@ -21,7 +21,7 @@ export default function LoginScreen() {
         .unwrap()
         .then(() => {
           dispatch(fetchFavoritesAction());
-          dispatch(fetchOffersAction())
+          dispatch(fetchOffersAction());
         });
     }
   };

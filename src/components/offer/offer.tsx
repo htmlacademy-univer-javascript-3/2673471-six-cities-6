@@ -2,8 +2,8 @@
 import {memo} from 'react';
 import {AppRoute, getStars} from '../../const.ts';
 import {OfferType} from '../../types/offer.type.ts';
-import {useAppDispatch} from "../../hooks";
-import {postFavoriteAction} from "../../store/api-actions.ts";
+import {useAppDispatch} from '../../hooks';
+import {postFavoriteAction} from '../../store/api-actions.ts';
 
 export type OfferBlockStyle = 'cities' | 'near-places' | 'favorites';
 export type OfferImageSize = 'small' | 'large';
@@ -24,12 +24,12 @@ function Offer({offer, block, sizeImage, onCardHover}: OfferProps) {
     dispatch(postFavoriteAction({
       offerId: offer.id,
       status: offer.isFavorite ? 0 : 1
-    }))
-  }
+    }));
+  };
   return (
     <article className={`${block}__card place-card`}
-             onMouseEnter={() => onCardHover(offer.id)}
-             onMouseLeave={() => onCardHover(null)}
+      onMouseEnter={() => onCardHover(offer.id)}
+      onMouseLeave={() => onCardHover(null)}
     >
       {
         offer.isPremium &&
@@ -40,7 +40,8 @@ function Offer({offer, block, sizeImage, onCardHover}: OfferProps) {
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img className='place-card__image' src={offer.previewImage} {...sizeImageRecord[sizeImage]}
-               alt={offer.title}/>
+            alt={offer.title}
+          />
         </Link>
       </div>
       <div className='place-card__info'>

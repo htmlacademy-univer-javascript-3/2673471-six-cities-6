@@ -5,8 +5,8 @@ import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CityEnum} from '../../types/city.enum.ts';
 import {CITIES} from '../../types/location.type.ts';
-import {getCity} from "../../store/offers/selectors.ts";
-import {changeCity} from "../../store/offers/offers.ts";
+import {getCity} from '../../store/offers/selectors.ts';
+import {changeCity} from '../../store/offers/offers.ts';
 
 function ListCities(): JSX.Element {
   const city = useAppSelector(getCity);

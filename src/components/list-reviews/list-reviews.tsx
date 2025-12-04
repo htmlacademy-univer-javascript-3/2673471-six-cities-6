@@ -2,7 +2,7 @@
 import {ReviewType} from '../../types/review.type.ts';
 import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../const.ts';
-import ListReviewsItems from "../list-reviews-items/list-reviews-items.tsx";
+import ListReviewsItems from '../list-reviews-items/list-reviews-items.tsx';
 
 type ListReviewsProps = {
   reviews: ReviewType[];

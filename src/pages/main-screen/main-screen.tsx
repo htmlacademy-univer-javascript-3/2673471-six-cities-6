@@ -10,9 +10,9 @@ import SortingOptions from '../../components/sorting-options/sorting-options.tsx
 import {SortOption, SortOptionType} from '../../types/sortOption.type.ts';
 import {sortOffersByOption} from '../../const.ts';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
-import {getCity, getOffers, getOffersLoadingStatus} from "../../store/offers/selectors.ts";
-import {getFavoriteOffers, getFavoritesLoadingStatus} from "../../store/favorites/selectors.ts";
-import MainEmptyScreen from "./main-empty-screen.tsx";
+import {getCity, getOffers, getOffersLoadingStatus} from '../../store/offers/selectors.ts';
+import {getFavoriteOffers, getFavoritesLoadingStatus} from '../../store/favorites/selectors.ts';
+import MainEmptyScreen from './main-empty-screen.tsx';
 
 export default function MainScreen(): JSX.Element {
   const [selectedOfferId, setSelectedOffer] = useState<OfferType['id'] | null>(null);
@@ -29,15 +29,15 @@ export default function MainScreen(): JSX.Element {
   const isFavoritesLoading = useAppSelector(getFavoritesLoadingStatus);
 
   const sortOffers = useMemo(() =>
-      sortOffersByOption(offers, selectedSortOption),
-    [offers, selectedSortOption]
+    sortOffersByOption(offers, selectedSortOption),
+  [offers, selectedSortOption]
   );
 
   if (isDataLoading || isFavoritesLoading) {
     return <LoadingSpinner/>;
   }
   if (offers.length === 0) {
-    return <MainEmptyScreen/>
+    return <MainEmptyScreen/>;
   }
   return (
     <div className='page page--gray page--main'>

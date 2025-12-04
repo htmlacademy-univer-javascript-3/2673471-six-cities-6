@@ -2,7 +2,7 @@
 import {AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
 import LoadingSpinner from '../loading-spinner/loading-spinner.tsx';
-import {getAuthorizationStatus} from "../../store/user/selectors.ts";
+import {getAuthorizationStatus} from '../../store/user/selectors.ts';
 
 type PrivateRouteProps = {
   redirectTo: string;

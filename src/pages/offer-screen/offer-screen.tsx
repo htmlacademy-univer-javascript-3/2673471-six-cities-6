@@ -14,10 +14,10 @@ import {
   fetchReviewsAction,
   postFavoriteAction
 } from '../../store/api-actions.ts';
-import {getAuthorizationStatus} from "../../store/user/selectors.ts";
-import {getDetailedOffer, getNearbyOffers} from "../../store/offers/selectors.ts";
-import {getReviews} from "../../store/reviews/selectors.ts";
-import {getFavoriteOffers, getFavoritesLoadingStatus} from "../../store/favorites/selectors.ts";
+import {getAuthorizationStatus} from '../../store/user/selectors.ts';
+import {getDetailedOffer, getNearbyOffers} from '../../store/offers/selectors.ts';
+import {getReviews} from '../../store/reviews/selectors.ts';
+import {getFavoriteOffers, getFavoritesLoadingStatus} from '../../store/favorites/selectors.ts';
 
 
 function OfferScreen() {
@@ -183,7 +183,8 @@ function OfferScreen() {
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <MemoizedListOffers offers={nearbyOffers} block='near-places' size='large' onCardHover={handleCardHover}
-                                className='near-places__list places__list'/>
+              className='near-places__list places__list'
+            />
           </section>
         </div>
       </main>

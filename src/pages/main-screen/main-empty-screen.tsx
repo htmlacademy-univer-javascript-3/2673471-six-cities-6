@@ -1,7 +1,7 @@
 ﻿import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo.tsx';
 import {AppRoute} from '../../const.ts';
-import HeaderNav from "../../components/header-nav/header-nav.tsx";
+import HeaderNav from '../../components/header-nav/header-nav.tsx';
 
 export default function MainEmptyScreen() {
   return (

@@ -15,7 +15,8 @@ function ListOffers(props: ListOffersProps) {
     <div className={props.className}>
       {props.offers.map((offer) => (
         <MemoizedOffer offer={offer} block={props.block} sizeImage={props.size} key={offer.id}
-                       onCardHover={props.onCardHover}/>
+          onCardHover={props.onCardHover}
+        />
       ))}
     </div>
   );
