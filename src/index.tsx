@@ -5,10 +5,11 @@ import {ToastContainer} from 'react-toastify';
 import 'leaflet/dist/leaflet.css';
 import App from './components/app/app.tsx';
 import {store} from './store';
-import {checkAuthAction, fetchOffersAction} from './store/api-actions.ts';
+import {checkAuthAction, fetchFavoritesAction, fetchOffersAction} from './store/api-actions.ts';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
+store.dispatch(fetchFavoritesAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

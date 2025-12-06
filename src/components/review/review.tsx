@@ -1,4 +1,4 @@
-﻿import {memo} from 'react';
+﻿import {memo, useMemo} from 'react';
 import { ReviewType } from '../../types/review.type.ts';
 import { getStars } from '../../const.ts';
 
@@ -6,8 +6,12 @@ type ReviewProps = {
   review: ReviewType;
 }
 
-
 function Review({ review }: ReviewProps) {
+  const formattedDate = useMemo(() => {
+    const date = new Date(review.date);
+    return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+  }, [review.date]);
+
   return (
     <li className='reviews__item'>
       <div className='reviews__user user'>
@@ -30,7 +34,7 @@ function Review({ review }: ReviewProps) {
           </div>
         </div>
         <p className='reviews__text'>{review.comment}</p>
-        <time className='reviews__time'>{review.date}</time>
+        <time className='reviews__time'>{formattedDate}</time>
       </div>
     </li>
   );

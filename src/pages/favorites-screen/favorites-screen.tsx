@@ -1,23 +1,27 @@
 ﻿import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo.tsx';
 import HeaderNav from '../../components/header-nav/header-nav.tsx';
-import {AppRoute, getFavorites} from '../../const.ts';
-import {OfferType} from '../../types/offer.type.ts';
-import {CityEnum} from '../../types/city.enum.ts';
-import Offer from '../../components/offer/offer.tsx';
+import {AppRoute} from '../../const.ts';
 import { useAppSelector } from '../../hooks/index.ts';
+import {
+  getFavoriteOffers,
+  getFavoritesLoadingStatus,
+  getGroupedFavoriteOffers
+} from '../../store/favorites/selectors.ts';
+import FavoritesEmptyScreen from './favorites-empty-screen.tsx';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
+import {MemoizedOffer} from '../../components/offer/offer.tsx';
+import {useCallback} from 'react';
 
 export default function FavoritesScreen(): JSX.Element {
-  const allOffers = useAppSelector((state) => state.allOffers);
-  const favorites = getFavorites(allOffers);
-  const groupedByCity = favorites.reduce<Record<CityEnum, OfferType[]>>((acc, offer) => {
-    const city = offer.city.name;
-    if (!acc[city]) {
-      acc[city] = [];
-    }
-    acc[city].push(offer);
-    return acc;
-  }, {} as Record<CityEnum, OfferType[]>);
+  const favorites = useAppSelector(getFavoriteOffers);
+  const groupedByCity = useAppSelector(getGroupedFavoriteOffers);
+  const isFavoritesLoading = useAppSelector(getFavoritesLoadingStatus);
+  const handleCardHover = useCallback(() => null, []);
+  if (isFavoritesLoading) {
+    return <LoadingSpinner />;
+  }
+
   const listFavorites = Object.entries(groupedByCity).map(([city, groupedOffers]) => (
     <li className='favorites__locations-items' key={city}>
       <div className='favorites__locations locations locations--current'>
@@ -29,11 +33,14 @@ export default function FavoritesScreen(): JSX.Element {
       </div>
       <div className='favorites__places'>
         {groupedOffers.map((offer) => (
-          <Offer offer={offer} key={city} block='favorites' sizeImage='small'></Offer>
+          <MemoizedOffer offer={offer} key={offer.id} block='favorites' sizeImage='small' onCardHover={handleCardHover}></MemoizedOffer>
         ))}
       </div>
     </li>
   ));
+  if (favorites.length === 0) {
+    return <FavoritesEmptyScreen/>;
+  }
   return (
     <div className='page'>
       <header className='header'>

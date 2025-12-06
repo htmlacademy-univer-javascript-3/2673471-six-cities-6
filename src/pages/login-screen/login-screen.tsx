@@ -3,7 +3,7 @@ import {useRef} from 'react';
 import {AppRoute} from '../../const.ts';
 import Logo from '../../components/logo/logo.tsx';
 import {useAppDispatch} from '../../hooks';
-import {loginAction} from '../../store/api-actions.ts';
+import {fetchFavoritesAction, fetchOffersAction, loginAction} from '../../store/api-actions.ts';
 
 export default function LoginScreen() {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -17,7 +17,12 @@ export default function LoginScreen() {
       dispatch(loginAction({
         email: loginRef.current.value,
         password: passwordRef.current.value
-      }));
+      }))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchFavoritesAction());
+          dispatch(fetchOffersAction());
+        });
     }
   };
   return (
